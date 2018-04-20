@@ -1,0 +1,15 @@
+#!/bin/bash
+#SBATCH --partition=q16
+#SBATCH --mem=60G
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=00:02:00
+#SBATCH --cpus-per-task=1
+
+echo "========= Job started  at $(date) =========="
+start=`date +%s`
+source ../bin/activate # Activate virtual environ
+python models/tutorials/image/mnist/convolutional.py
+echo "========= Job finished at $(date) =========="
+end=`date +%s`
+echo "Time: "$((end-start))"s"

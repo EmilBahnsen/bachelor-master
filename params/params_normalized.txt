@@ -1,0 +1,12 @@
+{
+  "number_of_atoms": 24,
+  "train_part": 0.9,
+  "n_epochs": 5000,
+  "batch_size": 9700,
+  "train_keep_probs": [0.7,0.7],
+  "data_directory": "carbondata/bachelor2018-master/CarbonDataNormalized",
+  "feature_directory": "features",
+  "feature_list_file": "features/f1.txt", # A feature file overwrites the feature criteria
+  "feature_criteria": {"eta": [2], "R_s": [3], "R_c": [7], "zeta": [1,2,3], "lambda": [1,-1]},
+  "hidden_neuren_count": [40,40,40]
+}

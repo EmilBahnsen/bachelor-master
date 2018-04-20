@@ -1,0 +1,11 @@
+__pycache__
+bin
+carbondata/bachelor2018-master/Slides
+lib
+model_final
+old_slurm
+slurm-*
+include
+pip-selfcheck.json
+logs
+.Python

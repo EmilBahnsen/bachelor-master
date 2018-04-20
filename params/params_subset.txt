@@ -1,0 +1,14 @@
+{
+  "number_of_atoms": 24,
+  "train_part": 0.9,
+  "n_epochs": 100000,
+  "batch_size": 80,
+  "train_keep_probs": [0.7,0.7],
+  "learning_rate": 2e-3,
+  "data_directory": "carbondata/CarbonDataSubset",
+  "feature_directory": "features",
+  "feature_list_file": "features/f_subset.txt", # A feature file overwrites the feature criteria
+  "feature_criteria": {"eta": [2], "R_s": [3], "R_c": [7], "zeta": [1,2,3], "lambda": [1,-1]},
+  "hidden_neuron_count": [40],
+  "log_root_dir": "./logs/nn_logs/test"
+}

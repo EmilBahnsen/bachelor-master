@@ -1,0 +1,17 @@
+{
+  "number_of_atoms": 24,
+  "train_part": 0.10,
+  "n_epochs": 50000000,
+  "summary_interval": 3000,
+  "batch_size": 0, # USING get_all()
+  "train_keep_probs": [0.7,0.7],
+  "learning_rate": 5e-5,
+  "id": "rate_1e-5_2_rate_5e-5",
+  "data_directory": "carbondata/bachelor2018-master/CarbonData",
+  "feature_directory": "features",
+  #"feature_list_file": "features/f1.txt", # A feature file overwrites the feature criteria
+  "feature_criteria": {"eta": [2,8,20,40,80], "R_s": [0,1,2,3,4,5,6,7], "R_c": [7], "zeta": [1,2,3], "lambda": [1,-1]},
+  "hidden_neuron_count": [40],
+  "log_root_dir": "./logs/nn_logs/rates_small",
+  "checkpoint_path": "model_final/2018-03-25_20.10_rate_1e-5_2/"
+}

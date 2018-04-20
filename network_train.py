@@ -27,9 +27,8 @@ class NetworkTrainer:
         run_timestamp = datetime.datetime.now().strftime('%Y-%m-%d_%H.%M')
         self.run_name = run_timestamp + "_" + id
         self.log_dir = os.path.join(self.log_root_dir, self.run_name)
-        self.model_dir = os.path.join(self.log_dir, "model_final")
-        os.makedirs(self.model_dir, exist_ok=True)
-        f = open(os.path.join(self.model_dir, "params.txt"),"w+")
+        os.makedirs(self.log_dir, exist_ok=True)
+        f = open(os.path.join(self.log_dir, "params.txt"),"w+")
         f.write(str(params)) # save the params to a filePath
         f.close()
 
@@ -126,10 +125,10 @@ class NetworkTrainer:
 
                     print('Epoch', epoch, 'completed out of', self.n_epochs, 'epoch_loss:', epoch_loss)
                     writer.add_summary(summary, epoch)
-                    saver.save(sess, os.path.join(self.model_dir, 'model'), global_step=epoch)
+                    saver.save(sess, os.path.join(self.log_dir, 'model'), global_step=epoch)
 
             # Save the whole session?
-            saver.save(sess, os.path.join(self.model_dir, 'model'))
+            saver.save(sess, os.path.join(self.log_dir, 'model'))
 
     def train_async(self):
         pass
