@@ -1,2 +1,0 @@
-./features/test_feature1.npy
-#./features/test_feature2.npy
