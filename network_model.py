@@ -133,19 +133,23 @@ class Model2:
                 # G is (batch_size, 24, fea_dim)
 
                 print(G)
-                layer = tf.contrib.layers.fully_connected(inputs = G, # (?,24,fea_dim)
-                                                          num_outputs = n_nodes_hl[0],
-                                                          biases_initializer=tf.contrib.layers.xavier_initializer(),
-                                                          activation_fn=tf.nn.tanh,
-                                                          scope = 'fc_in',
-                                                          reuse=tf.AUTO_REUSE)
-                print(layer)
-                #fc_in_w = self.get_var("fc_in/weights")
-                #layer = tf.Print(layer, [fc_in_w])
-                layer = tf.layers.dropout(inputs=layer,
-                                          rate=train_dropout_rate[0],
-                                          training=is_training,
-                                          name="dropout")
+                # If no hidden layer, then feed input directly to layer_out
+                if len(n_nodes_hl) >= 1:
+                    layer = tf.contrib.layers.fully_connected(inputs = G, # (?,24,fea_dim)
+                                                              num_outputs = n_nodes_hl[0],
+                                                              biases_initializer=tf.contrib.layers.xavier_initializer(),
+                                                              activation_fn=tf.nn.tanh,
+                                                              scope = 'fc_in',
+                                                              reuse=tf.AUTO_REUSE)
+                    print(layer)
+                    #fc_in_w = self.get_var("fc_in/weights")
+                    #layer = tf.Print(layer, [fc_in_w])
+                    layer = tf.layers.dropout(inputs=layer,
+                                              rate=train_dropout_rate[0],
+                                              training=is_training,
+                                              name="dropout")
+                else:
+                    layer = G
                 print(layer)
 
             for i in range(1,len(n_nodes_hl)):
@@ -166,7 +170,7 @@ class Model2:
             with tf.name_scope("layer_out"): # Here the energies of each of the atoms should show up
                 out = tf.contrib.layers.fully_connected(inputs = layer,
                                                         num_outputs = 1,
-                                                        #biases_initializer=tf.constant_initializer(value=-180),
+                                                        biases_initializer = None,
                                                         activation_fn = None,
                                                         scope = 'fc_out',
                                                         reuse=tf.AUTO_REUSE)
@@ -193,13 +197,14 @@ class Model2:
         E_G_test = model(G_test,train_dropout_rate,is_training)
 
         # Add histogram for weights and biases
-        tf.summary.histogram("w_in", self.get_var("fc_in/weights"))
-        tf.summary.histogram("b_in", self.get_var("fc_in/bias"))
+        if len(n_nodes_hl) >= 1:
+            tf.summary.histogram("w_in", self.get_var("fc_in/weights"))
+            tf.summary.histogram("b_in", self.get_var("fc_in/bias"))
         for i in range(1,len(n_nodes_hl)):
             tf.summary.histogram("w_"+str(i), self.get_var("fc_" + str(i) + "/weights"))
             tf.summary.histogram("b_"+str(i), self.get_var("fc_" + str(i) + "/bias"))
         tf.summary.histogram("w_out", self.get_var("fc_out/weights"))
-        tf.summary.histogram("b_out", self.get_var("fc_out/bias"))
+        #tf.summary.histogram("b_out", self.get_var("fc_out/bias"))
 
         # Create cost function
         with tf.name_scope("loss"):

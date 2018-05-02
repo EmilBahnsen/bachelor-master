@@ -23,10 +23,11 @@ class NetworkTrainer:
 
         # Create the folder for the model output
         self.log_root_dir = load_param("log_root_dir")
-        id = load_param("id")
         run_timestamp = datetime.datetime.now().strftime('%Y-%m-%d_%H.%M')
-        self.run_name = run_timestamp + "_" + id
+        self.run_name = run_timestamp
         self.log_dir = os.path.join(self.log_root_dir, self.run_name)
+        print("Log dir:", self.log_dir)
+
         os.makedirs(self.log_dir, exist_ok=True)
         f = open(os.path.join(self.log_dir, "params.txt"),"w+")
         f.write(str(params)) # save the params to a filePath
@@ -53,15 +54,17 @@ class NetworkTrainer:
         self.hidden_neuron_count = load_param("hidden_neuron_count")
         self.learning_rate = load_param("learning_rate")
         self.summary_interval = load_param("summary_interval")
+        feature_scaling = load_param("feature_scaling")
+        self.max_checkpoints_keep = load_param("max_checkpoints_keep")
 
         print("All parameters loaded.")
 
         # Load features
-        print("Loading features...", end="", flush=True)
+        print("Loading features...")
 
         # Load the features specified
         self.carbon_data = CarbonData(data_dir = data_dir, structure_size = self.n_atoms)
-        self.featureProvider = FeatureDataProvider(feature_file_list, self.carbon_data, trainPart = train_part, normalized_labels=False)
+        self.featureProvider = FeatureDataProvider(feature_file_list, self.carbon_data, trainPart = train_part, normalized_labels=False, feature_scaling=feature_scaling)
         print("Train samples:",len(self.featureProvider.train.labels))
         print("Test samples: ",len(self.featureProvider.test.labels))
         print("Labels shape:",self.featureProvider.train.labels.shape)
@@ -78,7 +81,7 @@ class NetworkTrainer:
         m = network_model.Model2(self.featureProvider.train.data.shape[2], n_nodes_hl = self.hidden_neuron_count, n_atoms = self.n_atoms, learning_rate = self.learning_rate)
 
         # Create a Saver object
-        saver = tf.train.Saver()
+        saver = tf.train.Saver(max_to_keep=self.max_checkpoints_keep)
 
         # Create a session
         with tf.Session() as sess:
@@ -103,7 +106,7 @@ class NetworkTrainer:
                          m.G_test: test_G,
                          m.E_test: test_E}
             for epoch in range(self.n_epochs):
-                epoch_loss = 0
+                #epoch_loss = 0
 
                 if self.batch_size == 0:
                     sess.run(m.train_optimzer, feed_dict)
@@ -116,19 +119,20 @@ class NetworkTrainer:
                         feed_dict[m.G] = epoch_G
                         feed_dict[m.E] = epoch_E
                         sess.run(m.train_optimzer, feed_dict)
-                        epoch_loss += lss
+                        #epoch_loss += lss
 
-                if (epoch%self.summary_interval == 0): # Write summary of every summary_interval step
+                # Write summary of every summary_interval step, and at the end
+                if (epoch%self.summary_interval == 0 or epoch == self.n_epochs):
                     test_feed_dict = feed_dict.copy()
                     test_feed_dict[m.is_training] = False
-                    summary, epoch_loss = sess.run([merged, m.loss], feed_dict)
+                    summary= sess.run(merged, feed_dict)
 
-                    print('Epoch', epoch, 'completed out of', self.n_epochs, 'epoch_loss:', epoch_loss)
+                    print('Epoch', epoch, 'completed out of', self.n_epochs)
                     writer.add_summary(summary, epoch)
                     saver.save(sess, os.path.join(self.log_dir, 'model'), global_step=epoch)
 
             # Save the whole session?
-            saver.save(sess, os.path.join(self.log_dir, 'model'))
+            #saver.save(sess, os.path.join(self.log_dir, 'model'))
 
     def train_async(self):
         pass

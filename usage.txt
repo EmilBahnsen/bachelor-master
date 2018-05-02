@@ -1,1 +1,3 @@
-python restore_model.py model_final/2018-03-30_10.53_3x80/
+for i in 2.2 2.4 2.6 2.8 3.2 3.4 3.6 3.8; do sed 's/CCC/'3.8'/g' params/params_features_few.txt > params.tmp; . network_train.sh params.tmp; done
+for i in $(seq -f %g 0.5 0.1 4); do sed 's/_2.pickle/_'$i'.pickle/g' feature_lists/f13.txt > 'feature_lists/f13_Rc'$i'.txt'; done
+for i in $(seq -f %g 1 2 26); do sed 's/NNN/'4'/g' params/params_features_few.txt > params.tmp; . network_train.sh params.tmp; done

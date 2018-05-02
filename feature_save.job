@@ -30,26 +30,26 @@ source ./single_feature_save.sh
 SAVE_DIR="features/"
 DATA_DIR="carbondata/bachelor2018-master/CarbonData"
 
-for R_c in 1 2 2.2 2.4 2.6 2.8 3 3.2 3.4 3.6 3.8 4 5 6 7; do
+for R_c in $(seq -f %g 0.5 0.1 4) 5 6 7; do
   for eta in 0.005 0.05 2 4 8 20 40 80; do
-    for R_s in 0 1 2 3 4 5 6 7; do
-      G1_name="G1_"$eta"_"$R_s"_"$R_c".pickle"
-      if [ ! -f $SAVE_DIR$G1_name ]; then
-        calculate_feature $G1_name     G1 $eta 0 0 $R_c $R_s $SAVE_DIR $DATA_DIR &
-      else
-        echo $G1_name" already exists."
-      fi
-    done
+    R_s=0
+    G1_name="G1_"$eta"_"$R_s"_"$R_c".pickle"
+    if [ ! -f $SAVE_DIR$G1_name ]; then
+      calculate_feature $G1_name     G1 $eta 0 0 $R_c $R_s $SAVE_DIR $DATA_DIR &
+    else
+      echo $G1_name" already exists."
+    fi
+  done
 
-    for zeta in 1 2 3; do
-      for lambda in 1 -1; do
-        G2_name="G2_"$eta"_"$zeta"_"$lambda"_"$R_c".pickle"
-        if [ ! -f $SAVE_DIR$G2_name ]; then
-          calculate_feature $G2_name G2 $eta $zeta $lambda $R_c $R_s $SAVE_DIR $DATA_DIR &
-        else
-          echo $G2_name" already exists."
-        fi
-      done
+  eta=0.005
+  for zeta in 1 2 3; do
+    for lambda in 1 -1; do
+      G2_name="G2_"$eta"_"$zeta"_"$lambda"_"$R_c".pickle"
+      if [ ! -f $SAVE_DIR$G2_name ]; then
+        calculate_feature $G2_name G2 $eta $zeta $lambda $R_c $R_s $SAVE_DIR $DATA_DIR &
+      else
+        echo $G2_name" already exists."
+      fi
     done
   done
 done
