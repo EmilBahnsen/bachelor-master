@@ -28,9 +28,19 @@ class StructureEnergyMap:
                                                    feature_scaling=self.ml.params["feature_scaling"])
 
         self._structure_atom_energies = None
+        self._delta_z = None
 
-    def get_energy_of_structure(self,n):
+    def get_energies_of_structure(self,n):
         return self.structure_atom_energies[n]
+
+    # The lagest within a structure
+    @property
+    def delta_z(self):
+        if self._delta_z == None:
+            zs = self.carbon_data.data_positions[:,:,2]
+            delta_zs = np.amax(zs, axis=0) - np.amin(zs, axis=0)
+            self._delta_z = np.max(delta_zs)
+        return self._delta_z
 
     @property
     def structure_atom_energies(self):
@@ -39,43 +49,22 @@ class StructureEnergyMap:
             self._structure_atom_energies = np.squeeze(self._structure_atom_energies)
         return self._structure_atom_energies
 
-    def structure_energy_map_figure_2D(self,fig,n):
-        atom_positions = self.carbon_data.getStructure(n)
-        atom_energies = self.get_energy_of_structure(n)
-
-        e_min = min(atom_energies)
-        e_max = max(atom_energies)
-
-        for i in range(len(atom_positions)):
-            x = atom_positions[i][0]
-            y = atom_positions[i][1]
-
-            atom_energy = atom_energies[i]
-            amount_red = np.interp(atom_energy, [e_min, e_max], [0,1])
-
-            colour = (amount_red, 0, 1-amount_red)
-            
-            plt.plot(x,y,'.',markerfacecolor=colour, markeredgecolor=colour,markersize=20)
-
-        plt.axis('off')
-        E_tot = np.sum(atom_energies)
-        plt.title("Structure #" + str(n) + ", E={:.2f}eV".format(E_tot))
+    def calc_sizes_using_z_depth(self, points):
+        max_size = 200 # in points squared
+        min_size = 50
+        delta_s = max_size - min_size
+        zs = points[:,2]
+        return delta_s/self.delta_z * zs + min_size
 
     def structure_energy_map_figure_2D_2(self,fig,n):
         atom_positions = self.carbon_data.getStructure(n)
         structure_energy = self.carbon_data.data_energies[n]
-        atom_energies = self.get_energy_of_structure(n)
+        atom_energies = self.get_energies_of_structure(n)
 
         e_min = min(atom_energies)
         e_max = max(atom_energies)
 
-        sizes = 100*np.ones(len(atom_energies))
-
-        x = np.arange(10)
-        y = np.arange(15)
-        X, Y = np.meshgrid(x, y)
-
-        XY = np.hstack((X.ravel()[:, np.newaxis], Y.ravel()[:, np.newaxis]))
+        sizes = self.calc_sizes_using_z_depth(atom_positions)
 
         ax = fig.add_subplot(111)
         E_tot = np.sum(atom_energies)
@@ -92,22 +81,23 @@ class StructureEnergyMap:
 
         return fig
 
-# usage: python structure_heatmap.py ../logs/nn_logs/features_few/Rc2.8/z-score/2x57/lr3e-4/2018-04-29_21.25/
+# usage: python structure_heatmap.py ../logs/nn_logs/features_few/Rc2.8/z-score/2x57/lr3e-4/2018-04-29_21.25/ structure_heatmaps/2x57
 if __name__ == "__main__":
     model_dir = sys.argv[1]
+    save_dir = sys.argv[2]
     sem = StructureEnergyMap(model_dir)
 
-    print(sem.get_energy_of_structure(0))
+    print(sem.get_energies_of_structure(0))
 
     energies = sem.carbon_data.data_energies
     ascending_energy_index_list = np.argsort(energies)
 
-    fig= plt.figure()
+    fig = plt.figure()
     #for i,n in enumerate(ascending_energy_index_list):
-    for i,n in enumerate(ascending_energy_index_list[0:1]):
+    for i,n in enumerate(ascending_energy_index_list[0:10]):
         fig.clf()
         fig = sem.structure_energy_map_figure_2D_2(fig,n)
-        file_name = "structure_heatmaps/structure_heatmap_" + str(i) + ".svg"
+        file_name = os.path.join(save_dir, "structure_heatmap_" + str(i) + ".svg")
         fig.savefig(file_name)
         print(file_name, "saved.")
 

@@ -122,7 +122,7 @@ class NetworkTrainer:
                         #epoch_loss += lss
 
                 # Write summary of every summary_interval step, and at the end
-                if (epoch%self.summary_interval == 0 or epoch == self.n_epochs):
+                if (epoch%self.summary_interval == 0 or epoch == max(range(self.n_epochs))):
                     test_feed_dict = feed_dict.copy()
                     test_feed_dict[m.is_training] = False
                     summary= sess.run(merged, feed_dict)
@@ -130,9 +130,6 @@ class NetworkTrainer:
                     print('Epoch', epoch, 'completed out of', self.n_epochs)
                     writer.add_summary(summary, epoch)
                     saver.save(sess, os.path.join(self.log_dir, 'model'), global_step=epoch)
-
-            # Save the whole session?
-            #saver.save(sess, os.path.join(self.log_dir, 'model'))
 
     def train_async(self):
         pass

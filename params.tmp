@@ -10,9 +10,9 @@
   "uniform_batch": False,
   "learning_rate": 1e-3,
   "feature_scaling":     {"type": "z-score"}, # {"type": "z-score"} or {"type": "min-max", "interval": [0,1]} or None
-  "train_dropout_rate":  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
-  "hidden_neuron_count": [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,],
-  "log_root_dir": "./logs/nn_logs/features_few/Rc2.8/z-score/30x5",
+  "train_dropout_rate":  [0],
+  "hidden_neuron_count": [69],
+  "log_root_dir": "./logs/nn_logs/features_few/Rc2.8/z-score/1x69",
   #"log_root_dir": "./logs/nn_logs/test",
   "data_directory": "carbondata/bachelor2018-master/CarbonData",
   "feature_directory": "features",
