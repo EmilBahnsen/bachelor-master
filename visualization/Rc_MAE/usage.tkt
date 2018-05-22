@@ -1,0 +1,1 @@
+python Rc_MAE.py '../logs/nn_logs/features_few/Rc*/z-score/58-58-58-58_*/*' Rc_MAE/Rc_MAE_58-58-58-58.pdf "13-58-58-58-58-1 network after 150k itterations" 150000

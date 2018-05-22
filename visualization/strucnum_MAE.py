@@ -5,7 +5,7 @@ import numpy as np
 from bash_file_tools import *
 import re
 
-# usage: python Rc_MAE.py '../logs/nn_logs/features_few/Rc*/z-score/1x15/*' Rc_MAE/Rc_MAE_1x15.pdf "13-15-1 network after 500k itterations" 500000 <steps>
+# usage: python strucnum_MAE.py '../logs/nn_logs/features_few/Rc2.8/z-score/58-58-58-58_ba1k/struc*/*' strucnum_MAE/strucnum_MAE.pdf "13-58-58-58-58-1 network after 500k itterations" 500000 <steps>
 model_dirs_bash_path = sys.argv[1]
 out_file = sys.argv[2]
 title = sys.argv[3]

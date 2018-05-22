@@ -47,8 +47,10 @@ class NetworkTrainer:
         train_part = load_param("train_part")
         self.n_epochs   = load_param("n_epochs")
         self.batch_size = load_param("batch_size")
+        self.uniform_batch = load_param("uniform_batch")
         self.train_dropout_rate = load_param("train_dropout_rate")
         self.n_atoms = load_param("number_of_atoms")
+        structures_to_use = load_param("structures_to_use")
         data_dir = load_param("data_directory")
         self.checkpoint_path = load_param("checkpoint_path")
         self.hidden_neuron_count = load_param("hidden_neuron_count")
@@ -63,7 +65,7 @@ class NetworkTrainer:
         print("Loading features...")
 
         # Load the features specified
-        self.carbon_data = CarbonData(data_dir = data_dir, structure_size = self.n_atoms)
+        self.carbon_data = CarbonData(data_dir = data_dir, structure_size = self.n_atoms, structures_to_use=structures_to_use)
         self.featureProvider = FeatureDataProvider(feature_file_list, self.carbon_data, trainPart = train_part, normalized_labels=False, feature_scaling=feature_scaling)
         print("Train samples:",len(self.featureProvider.train.labels))
         print("Test samples: ",len(self.featureProvider.test.labels))
@@ -84,6 +86,7 @@ class NetworkTrainer:
         saver = tf.train.Saver(max_to_keep=self.max_checkpoints_keep)
 
         # Create a session
+        min_loss = 100
         with tf.Session() as sess:
             # Create a FileWriter for the log. run 'tensorboard --logdir=./logs/nn_logs'
             writer = tf.summary.FileWriter(self.log_dir, sess.graph)
@@ -105,11 +108,18 @@ class NetworkTrainer:
                          m.is_training: True,
                          m.G_test: test_G,
                          m.E_test: test_E}
+            test_feed_dict = feed_dict.copy()
+            test_feed_dict[m.is_training] = False
+            itterations = 0
+            if self.batch_size != 0:
+                self.summary_interval = int(self.summary_interval/(self.carbon_data.numberOfStructures/self.batch_size))
+            print(self.summary_interval)
             for epoch in range(self.n_epochs):
                 #epoch_loss = 0
 
                 if self.batch_size == 0:
-                    sess.run(m.train_optimzer, feed_dict)
+                    _,epoch_loss = sess.run([m.train_optimzer,m.loss], feed_dict)
+                    itterations += 1
                 else:
                     for i in range(int(self.carbon_data.numberOfStructures/self.batch_size)):
                         if self.uniform_batch is True:
@@ -118,18 +128,18 @@ class NetworkTrainer:
                             epoch_G, epoch_E = self.featureProvider.train.next_batch(self.batch_size)
                         feed_dict[m.G] = epoch_G
                         feed_dict[m.E] = epoch_E
-                        sess.run(m.train_optimzer, feed_dict)
+                        _,epoch_loss = sess.run([m.train_optimzer,m.loss], feed_dict)
+                        itterations += 1
                         #epoch_loss += lss
 
                 # Write summary of every summary_interval step, and at the end
-                if (epoch%self.summary_interval == 0 or epoch == max(range(self.n_epochs))):
-                    test_feed_dict = feed_dict.copy()
-                    test_feed_dict[m.is_training] = False
-                    summary= sess.run(merged, feed_dict)
-
+                if (epoch%self.summary_interval == 0 or epoch == max(range(self.n_epochs))) or epoch_loss < min_loss:
+                    if epoch_loss < min_loss:
+                        min_loss = epoch_loss
+                    summary = sess.run(merged, test_feed_dict)
                     print('Epoch', epoch, 'completed out of', self.n_epochs)
-                    writer.add_summary(summary, epoch)
-                    saver.save(sess, os.path.join(self.log_dir, 'model'), global_step=epoch)
+                    writer.add_summary(summary, itterations)
+                    saver.save(sess, os.path.join(self.log_dir, 'model'), global_step=itterations)
 
     def train_async(self):
         pass
