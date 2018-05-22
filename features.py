@@ -29,19 +29,26 @@ def G1(i,allPoints, eta, R_s, R_c):
 
 def G2(i, allPoints, eta, zeta, lamb, R_c): # lamb = +1 or -1
     sum = 0
+    allPoints = np.array(allPoints)
     p_i = allPoints[i]
     restPoints = np.delete(allPoints,i,0) # Same as above
-    for j,p_j in enumerate(restPoints):
-        for k,p_k in enumerate(restPoints):
-            vR_ij = p_i - p_j
-            vR_ik = p_i - p_k
-            R_ij = norm3D(vR_ij)
+    for j in range(len(restPoints)):
+        p_j = restPoints[j]
+        vR_ij = p_j - p_i
+        R_ij = norm3D(vR_ij)
+        if R_ij > R_c: # Due to f_c
+            continue
+        for k in range(j+1,len(restPoints)):
+            p_k = restPoints[k]
+            vR_ik = p_k - p_i
             R_ik = norm3D(vR_ik)
-            R_jk = distance3D(p_j,p_k)
-            if R_ij > R_c or R_ik > R_c or R_jk > R_c: # Due to f_c
+            if R_ik > R_c: # Due to f_c
                 continue
-            theta_ijk = dot3D(vR_ij, vR_ik) / (R_ij * R_ik)
-            sum += (1 + lamb * math.cos(theta_ijk))**zeta \
+            R_jk = distance3D(p_j,p_k)
+            if R_jk > R_c: # Due to f_c
+                continue
+            cos_theta_ijk = dot3D(vR_ij, vR_ik) / (R_ij * R_ik)
+            sum += (1 + lamb * cos_theta_ijk)**zeta \
                     * math.exp(-eta*(R_ij**2 + R_ik**2 + R_jk**2) / R_c**2) \
                     * f_c(R_ij,R_c)*f_c(R_ik,R_c)*f_c(R_jk,R_c)
 
