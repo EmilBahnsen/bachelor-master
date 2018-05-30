@@ -14,7 +14,7 @@ R_S = float(os.environ['R_S'])
 SAVE_DIR = str(os.environ['SAVE_DIR'])
 DATA_DIR = str(os.environ['DATA_DIR'])
 
-carbonData = cd.CarbonData(DATA_DIR)
+carbonData = cd.CarbonData(DATA_DIR,random_seed=None) # DO NOT randomize when generating features
 
 filehandler = open(SAVE_DIR + EXP_NAME, "wb")
 filehandler_param = open(SAVE_DIR + "param_" + EXP_NAME, "wb")

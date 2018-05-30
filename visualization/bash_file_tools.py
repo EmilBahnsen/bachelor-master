@@ -17,3 +17,4 @@ def list_bash_files(model_dirs_bash_path):
     model_dirs = model_dirs.split()
     model_dirs = sort_string_with_numbers(model_dirs)
     return model_dirs
+

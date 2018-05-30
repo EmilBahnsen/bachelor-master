@@ -4,6 +4,7 @@ import ast
 import numpy as np
 from bash_file_tools import *
 import re
+from helper import *
 
 # usage: python Rc_MAE.py '../logs/nn_logs/features_few/Rc*/z-score/1x15/*' Rc_MAE/Rc_MAE_1x15.pdf "13-15-1 network after 500k itterations" 500000 <steps>
 model_dirs_bash_path = sys.argv[1]
@@ -37,15 +38,17 @@ Rc = np.array(Rc)
 MAE_test_end_values = np.array(MAE_test_end_values)
 
 # Calc mean and errorbars for points of multible runs
-n_new,MAE_new,MAE_err = mean_and_error(MAE_test_end_values,Rc)
+Rc_new,MAE_new,MAE_err = mean_and_error(MAE_test_end_values,Rc)
 
 print(Rc_new)
 print(MAE_new)
 print(MAE_err)
 
 plt.errorbar(Rc_new,MAE_new,yerr=MAE_err,fmt='.b', markersize=1)
-plt.ylim(.2,0.25)
+plt.ylim(.45,0.75)
 plt.title(title)
 plt.xlabel("$R_c\, [Å]$")
 plt.ylabel("$MAE\, [eV]$")
 plt.savefig(out_file)
+
+np.savetxt(out_file + '.txt', (Rc_new, MAE_new, MAE_err))

@@ -1,0 +1,29 @@
+Enclosing zxy of structure:
+Min: [2.37874376 2.36428529 0.0624867 ] at index [9344 6417 8907]
+Max: [20.24399703 20.43986133 14.48159232] at index [6983 1590  583]
+Mean: [8.57213803 8.60124155 2.81875903]
+Std: [2.40011113 2.18427844 1.96134968]
+
+Enclosing volume of structure:
+Min: 4.28 at index 8907
+Max: 3385.83 at index 8274
+Mean: 218.53
+Std: 271.45
+
+Energies:
+Min: -188.51 at index 7573
+Max: -166.78 at index 41
+Mean: -179.14
+Std: 2.81
+
+Interatomic distances:
+Min: 1.23 at index 7028
+Max: 28.88 at index 2073
+Mean: 4.85
+Std: 2.52
+
+Convex hull:
+Min: 0.52 at index 3577
+Max: 203.29 at index 5384
+Mean: 32.03
+Std: 22.23

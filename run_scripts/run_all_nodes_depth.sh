@@ -9,6 +9,6 @@ for layer_num in $(seq 1 1 30); do
 	sed 's/ZZZ/'$zzz'/g' run_scripts/params_run_all_nodes_depth.txt > params.tmp
 	sed -i 's/MMM/'$mmm'/g' params.tmp
 	sed -i 's/NNN/'$nnn'/g' params.tmp
-	. network_train.sh params.tmp $1
+	#. network_train.sh params.tmp $1
 done
 cd $DIR

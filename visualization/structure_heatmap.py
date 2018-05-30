@@ -1,4 +1,4 @@
-from model_loader import *
+from visualization.model_loader import *
 from feature_data_provider import *
 from carbondata import *
 import os
@@ -45,7 +45,9 @@ class StructureEnergyMap:
     @property
     def structure_atom_energies(self):
         if self._structure_atom_energies is None:
-            self._structure_atom_energies = self.ml.eval_tensor_by_name("layer_out/fc_out/BiasAdd:0", self.featureProvider.train.data)
+            #[print(x) for x in self.ml.get_name_of_tensors()]
+            all_data = self.featureProvider.train.data
+            self._structure_atom_energies = self.ml.eval_tensor_by_name("layer_out/fc_out/Tensordot:0", all_data)
             self._structure_atom_energies = np.squeeze(self._structure_atom_energies)
         return self._structure_atom_energies
 

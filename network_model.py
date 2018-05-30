@@ -102,7 +102,7 @@ class Model:
         return tf.get_default_graph().as_graph_def().node
 
 class Model2:
-    def __init__(self, dim_feature, n_nodes_hl, n_atoms = 24, learning_rate = 1e-3):
+    def __init__(self, dim_feature, n_nodes_hl, n_atoms = 24, learning_rate = 1e-3, precision=tf.float64):
         n_nodes_out = 1
 
         def init_random_tensor(shape, name):
@@ -183,14 +183,14 @@ class Model2:
                 return E_tot
 
         # Init data tensors
-        G               = tf.placeholder('float',[None, n_atoms, dim_feature], name="G")
-        E               = tf.placeholder('float',[None, 1], name="E")
-        train_dropout_rate      = tf.placeholder(tf.float32, [len(n_nodes_hl)], name="train_dropout_rate")
+        G               = tf.placeholder(precision,[None, n_atoms, dim_feature], name="G")
+        E               = tf.placeholder(precision,[None, 1], name="E")
+        train_dropout_rate      = tf.placeholder(precision, [len(n_nodes_hl)], name="train_dropout_rate")
         is_training     = tf.placeholder(tf.bool, name="is_training")
 
         # Test data tensors
-        G_test = tf.placeholder(tf.float32, [None, n_atoms, dim_feature])
-        E_test = tf.placeholder(tf.float32, [None, 1])
+        G_test = tf.placeholder(precision, [None, n_atoms, dim_feature])
+        E_test = tf.placeholder(precision, [None, 1])
 
         # Create the model
         E_G = tf.identity(model(G,train_dropout_rate,is_training), name="E_G")
@@ -253,6 +253,7 @@ class Model2:
 
 
         self.loss = loss
+        self.loss_test = loss_test
         self.train_optimzer = train_optimzer
         self.E = E
         self.G = G

@@ -65,8 +65,8 @@ class NetworkTrainer:
         print("Loading features...")
 
         # Load the features specified
-        self.carbon_data = CarbonData(data_dir = data_dir, structure_size = self.n_atoms, structures_to_use=structures_to_use)
-        self.featureProvider = FeatureDataProvider(feature_file_list, self.carbon_data, trainPart = train_part, normalized_labels=False, feature_scaling=feature_scaling)
+        self.carbon_data = CarbonData(data_dir = data_dir, structure_size = self.n_atoms)
+        self.featureProvider = FeatureDataProvider(feature_file_list, self.carbon_data, trainPart = train_part, trainFraction=structures_to_use, normalized_labels=False, feature_scaling=feature_scaling)
         print("Train samples:",len(self.featureProvider.train.labels))
         print("Test samples: ",len(self.featureProvider.test.labels))
         print("Labels shape:",self.featureProvider.train.labels.shape)
@@ -86,7 +86,7 @@ class NetworkTrainer:
         saver = tf.train.Saver(max_to_keep=self.max_checkpoints_keep)
 
         # Create a session
-        min_loss = 100
+        min_loss_test = 1e10
         with tf.Session() as sess:
             # Create a FileWriter for the log. run 'tensorboard --logdir=./logs/nn_logs'
             writer = tf.summary.FileWriter(self.log_dir, sess.graph)
@@ -97,7 +97,7 @@ class NetworkTrainer:
                 sess.run(tf.global_variables_initializer())
                 sess.run(tf.local_variables_initializer())
             else:
-                saver.restore(sess, self.checkpoint_path)
+                saver.restore(sess, tf.train.latest_checkpoint(self.checkpoint_path))
 
             # Train the model
             epoch_G, epoch_E = self.featureProvider.train.get_all()
@@ -115,10 +115,9 @@ class NetworkTrainer:
                 self.summary_interval = int(self.summary_interval/(self.carbon_data.numberOfStructures/self.batch_size))
             print(self.summary_interval)
             for epoch in range(self.n_epochs):
-                #epoch_loss = 0
 
                 if self.batch_size == 0:
-                    _,epoch_loss = sess.run([m.train_optimzer,m.loss], feed_dict)
+                    sess.run(m.train_optimzer, feed_dict)
                     itterations += 1
                 else:
                     for i in range(int(self.carbon_data.numberOfStructures/self.batch_size)):
@@ -128,18 +127,17 @@ class NetworkTrainer:
                             epoch_G, epoch_E = self.featureProvider.train.next_batch(self.batch_size)
                         feed_dict[m.G] = epoch_G
                         feed_dict[m.E] = epoch_E
-                        _,epoch_loss = sess.run([m.train_optimzer,m.loss], feed_dict)
+                        sess.run(m.train_optimzer, feed_dict)
                         itterations += 1
-                        #epoch_loss += lss
 
                 # Write summary of every summary_interval step, and at the end
-                if (epoch%self.summary_interval == 0 or epoch == max(range(self.n_epochs))) or epoch_loss < min_loss:
-                    if epoch_loss < min_loss:
-                        min_loss = epoch_loss
-                    summary = sess.run(merged, test_feed_dict)
+                if (epoch%self.summary_interval == 0 or epoch == max(range(self.n_epochs))):
+                    summary,loss_test = sess.run([merged,m.loss_test], test_feed_dict)
                     print('Epoch', epoch, 'completed out of', self.n_epochs)
                     writer.add_summary(summary, itterations)
-                    saver.save(sess, os.path.join(self.log_dir, 'model'), global_step=itterations)
+                    if min_loss_test > loss_test:
+                        min_loss_test = loss_test
+                        saver.save(sess, os.path.join(self.log_dir, 'model'), global_step=itterations)
 
     def train_async(self):
         pass

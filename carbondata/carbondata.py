@@ -52,7 +52,7 @@ class CarbonData:
     fileDir = os.path.dirname(__file__)
     #dataDir = os.path.join(fileDir, '../tests/carbondata/data')
 
-    def __init__(self, data_dir, structure_size = 24, energy_interval = None, structures_to_use=None):
+    def __init__(self, data_dir, structure_size = 24, energy_interval = None, structures_to_use = 1.0, random_seed = 0):
         energyDataPath = os.path.join(data_dir, 'energies.npy')
         positionDataPath = os.path.join(data_dir, 'positions.npy')
 
@@ -61,12 +61,13 @@ class CarbonData:
         self.data_positions = np.load(positionDataPath)
         self.data_positions = np.reshape(self.data_positions, (self.numberOfStructures,structure_size,3))
 
-        # Randomize data
-        np.random.seed(seed=0)
         self.used_structures_index = np.arange(self.numberOfStructures)
-        np.random.shuffle(self.used_structures_index)
-        self.data_energies = self.data_energies[self.used_structures_index]
-        self.data_positions = self.data_positions[self.used_structures_index]
+        # Randomize data
+        if (random_seed is not None):
+            np.random.seed(seed=random_seed)
+            np.random.shuffle(self.used_structures_index)
+            self.data_energies = self.data_energies[self.used_structures_index]
+            self.data_positions = self.data_positions[self.used_structures_index]
 
         # Use structures_to_use only
         if structures_to_use is not 1.0:

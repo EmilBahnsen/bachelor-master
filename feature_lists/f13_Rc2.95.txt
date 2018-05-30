@@ -1,0 +1,13 @@
+features/G1_0.05_0_2.95.pickle
+features/G1_20_0_2.95.pickle
+features/G1_2_0_2.95.pickle
+features/G1_40_0_2.95.pickle
+features/G1_4_0_2.95.pickle
+features/G1_80_0_2.95.pickle
+features/G1_8_0_2.95.pickle
+features/G2_0.005_1_-1_2.95.pickle
+features/G2_0.005_1_1_2.95.pickle
+features/G2_0.005_2_-1_2.95.pickle
+features/G2_0.005_2_1_2.95.pickle
+features/G2_0.005_4_-1_2.95.pickle
+features/G2_0.005_4_1_2.95.pickle

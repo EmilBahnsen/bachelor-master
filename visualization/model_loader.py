@@ -7,25 +7,30 @@ import ast
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+from feature_data_provider import FeatureDataProvider
+from carbondata import CarbonData
+import network_model
 
 class ModelLoader:
     def __init__(self, log_dir):
-        self.log_dir = log_dir
+        self.log_dir = os.path.abspath(log_dir)
         self.event_acc = EventAccumulator(log_dir)
         self.event_acc.Reload()
 
         # Load parametr file
         # Load parameters from dictianory literal in file of first argument
-        params_file = os.path.join(log_dir, "params.txt")
+        params_file = os.path.join(self.log_dir, "params.txt")
         params_dictionary = str(open(params_file, 'r').read())
         self.params = ast.literal_eval(params_dictionary)
 
         # Get the latest model
         tf.reset_default_graph()
-        list_of_files = glob.glob(os.path.join(self.log_dir, "*.meta"))
-        model_path = max(list_of_files, key=os.path.getctime)
-        self.meta_graph = tf.train.import_meta_graph(model_path)
-
+        try:
+            list_of_files = glob.glob(os.path.join(self.log_dir, "*.meta"))
+            self.model_path = max(list_of_files, key=os.path.getctime)
+            self.meta_graph = tf.train.import_meta_graph(self.model_path)
+        except ValueError:
+            raise FileNotFoundError
         self._graph = None
 
     @property
@@ -34,7 +39,6 @@ class ModelLoader:
             with tf.Session() as sess:
                 self.meta_graph.restore(sess, tf.train.latest_checkpoint(self.log_dir))
                 self._graph = tf.get_default_graph()
-        
         return self._graph
 
     def __restore_latest_checkpoint(self,sess):
@@ -50,6 +54,9 @@ class ModelLoader:
         w_times, step_nums, vals = zip(*self.event_acc.Scalars(name))
         return w_times, step_nums, vals
 
+    def get_name_of_tensors(self):
+        return [n.name for n in self.graph.as_graph_def().node]
+
     def get_tensor_by_name(self,name):
         return self.graph.get_tensor_by_name(name)
 
@@ -62,9 +69,56 @@ class ModelLoader:
         feed_dict = {G: feature_vectors,
                      train_dropout_rate: self.params["train_dropout_rate"],
                      is_training: False}
+
         with tf.Session() as sess:
             self.__restore_latest_checkpoint(sess)
             return sess.run(t, feed_dict=feed_dict)
+
+    # Extract the energy of a new struture from the position of the atoms
+    def get_energy_of_structures(self,structures,precision=tf.float64):
+        feature_list_file   = self.params["feature_list_file"]
+        data_dir            = self.params["data_directory"]
+        n_atoms             = self.params["number_of_atoms"]
+        structures_to_use   = self.params["structures_to_use"]
+        train_part          = self.params["train_part"]
+        feature_scaling     = self.params["feature_scaling"]
+        hidden_neuron_count = self.params["hidden_neuron_count"]
+        n_positions         = len(structures[0])
+
+        feature_file_list = [x.strip() for x in open(feature_list_file, "r").readlines()]
+
+        carbon_data = CarbonData(data_dir = data_dir, structure_size = n_atoms, structures_to_use = structures_to_use)
+        feature_provider = FeatureDataProvider(feature_file_list, carbon_data, trainPart = train_part, normalized_labels=False, feature_scaling=feature_scaling)
+
+        # Perferm features extraction
+        # and scaling accoding to scaling method used in tarning
+        feature_vectors = feature_provider.extract_features_from_structures(structures)
+
+        # Reset tf
+        tf.reset_default_graph()
+        # Load the model
+        m = network_model.Model2(feature_provider.train.data.shape[2], n_nodes_hl = hidden_neuron_count, n_atoms = n_positions, learning_rate = 0, precision=precision)
+        saver = tf.train.Saver(max_to_keep=1)
+
+        graph = tf.get_default_graph()
+        E_G = graph.get_tensor_by_name('E_G:0')
+
+        G = graph.get_tensor_by_name("G:0")
+        train_dropout_rate = graph.get_tensor_by_name("train_dropout_rate:0")
+        is_training = graph.get_tensor_by_name("is_training:0")
+        feed_dict = {G: feature_vectors,
+                     train_dropout_rate: self.params["train_dropout_rate"],
+                     is_training: False}
+
+        with tf.Session(graph=graph) as sess:
+            self.__restore_latest_checkpoint(sess)
+            energies = sess.run(E_G, feed_dict=feed_dict)
+
+        # Calc what structurs have features outside of trainnig set
+        fea_min,fea_max = feature_provider.get_feature_space_hypercube_bonuds()
+        out_of_train_index = ((feature_vectors < fea_min) | (feature_vectors > fea_max)).any(axis=2).sum(axis=1)
+        
+        return energies, out_of_train_index
 
     def get_all_variables(self):
         with self.graph.as_default():

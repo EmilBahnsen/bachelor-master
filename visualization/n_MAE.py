@@ -18,7 +18,7 @@ mls = [ModelLoader(model_dir) for model_dir in model_dirs]
 # print(re.search("(?=1x)(\d+)", mls[0].params["log_root_dir"]).group(0), re.search("(1x)(\d+)", mls[0].params["log_root_dir"]).group(1), re.search("(1x)(\d+)", mls[0].params["log_root_dir"]).group(2))
 # exit()
 
-n = [re.search("(1x)(\d+)", ml.params["log_root_dir"]).group(2) for ml in mls]
+n = [re.search("/(\d+)/", model_dir).group(1) for model_dir in model_dirs]
 n = np.array(n)
 n = n.astype(float)
 n = np.array(n)
