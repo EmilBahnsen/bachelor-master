@@ -110,7 +110,8 @@ class FeatureDataProvider:
         if self.__feature_descriptors is None:
             self.__feature_descriptors = []
             for i,fea_file in enumerate(self.file_list):
-                params = np.array(re.findall(r"[-+]?\d*\.\d+|[+-]?\d+", fea_file))
+                fea_file_name = fea_file.split('/')[-1]
+                params = np.array(re.findall(r"[-+]?\d*\.\d+|[+-]?\d+", fea_file_name))
                 fea_type = params[0]
                 params = params[1:].astype(float)
                 fea_dec = {}

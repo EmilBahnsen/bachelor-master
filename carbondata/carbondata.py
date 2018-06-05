@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import random
 
 class DataProvider:
     batchPointer = 0
@@ -13,14 +14,21 @@ class DataProvider:
             self.labels -= np.mean(self.labels)                 # Shift and normalize
             self.labels /= np.max(np.absolute(self.labels))     #
 
+    # DOTO: Mini-batches
     def next_batch(self, batch_size: int):
         # If its asking for too much data, return it all
         if batch_size > len(self.data):
             return self.data, self.labels
-        if self.batchPointer + batch_size  - 1 >= len(self.data):
-            self.batchPointer = 0
-        interval = range(self.batchPointer,self.batchPointer+batch_size)
-        self.batchPointer+=batch_size
+        # If it askes for data past the array, wrap around
+        # if self.batchPointer + batch_size - 1 > len(self.data) - 1:
+        #     end_inverval = range(self.batchPointer,len(self.data))
+        #     self.batchPointer = batch_size - len(end_inverval)
+        #     start_inverval = range(0, self.batchPointer)
+        #     return np.append(self.data[end_inverval],self.data[start_inverval]), np.append(self.labels[end_inverval],self.labels[start_inverval])
+        # interval = range(self.batchPointer,self.batchPointer+batch_size)
+        # self.batchPointer+=batch_size
+        # Completely random sampling
+        interval = random.sample(range(len(self.data)), batch_size)
         return self.data[interval], self.labels[interval]
 
     def next_uniform_batch(self, batch_size: int):
@@ -52,7 +60,7 @@ class CarbonData:
     fileDir = os.path.dirname(__file__)
     #dataDir = os.path.join(fileDir, '../tests/carbondata/data')
 
-    def __init__(self, data_dir, structure_size = 24, energy_interval = None, structures_to_use = 1.0, random_seed = 0):
+    def __init__(self, data_dir, structure_size = 24, energy_interval = None, structures_to_use = 1.0, random_seed = 0, with_forces=False):
         energyDataPath = os.path.join(data_dir, 'energies.npy')
         positionDataPath = os.path.join(data_dir, 'positions.npy')
 
@@ -60,6 +68,11 @@ class CarbonData:
         self.numberOfStructures = len(self.data_energies)
         self.data_positions = np.load(positionDataPath)
         self.data_positions = np.reshape(self.data_positions, (self.numberOfStructures,structure_size,3))
+
+        if with_forces:
+            forcesDataPath = os.path.join(data_dir, 'forces.npy')
+            self.data_forces = np.load(forcesDataPath)
+            self.data_forces = np.reshape(self.data_forces, (self.numberOfStructures,structure_size,3))
 
         self.used_structures_index = np.arange(self.numberOfStructures)
         # Randomize data
@@ -90,6 +103,13 @@ class CarbonData:
         return self.data_positions[i]
 
 if __name__ == "__main__":
+
+    dp = DataProvider([0,1,2,3,4], [1,2,3,4,5])
+    print(dp.next_batch(3))
+    print(dp.next_batch(5))
+    print(dp.next_batch(3))
+    exit()
+
     cd = CarbonData('bachelor2018-master/CarbonData/', structures_to_use=1000)
     import matplotlib.pyplot as plt
     np.random.seed(seed=0)

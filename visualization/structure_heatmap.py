@@ -10,13 +10,14 @@ def absolute_path_wrt_parent(path):
     return os.path.join(this_file_dir, "..", path)
 
 class StructureEnergyMap:
-    def __init__(self, model_dir):
+    def __init__(self, model_dir, with_forces):
         self.ml = ModelLoader(log_dir=model_dir)
 
         this_file_dir = os.path.dirname(os.path.abspath(__file__))
         absolute_data_dir_path = os.path.join(this_file_dir, "..", self.ml.params["data_directory"])
         self.carbon_data = CarbonData(data_dir = absolute_data_dir_path,
-                                      structure_size = self.ml.params["number_of_atoms"])
+                                      structure_size = self.ml.params["number_of_atoms"],
+                                      random_seed=None,with_forces=with_forces)
         
         # Open feature file list and put it into a list
         feature_list_file = absolute_path_wrt_parent(self.ml.params["feature_list_file"])
@@ -83,11 +84,24 @@ class StructureEnergyMap:
 
         return fig
 
-# usage: python structure_heatmap.py ../logs/nn_logs/features_few/Rc2.8/z-score/2x57/lr3e-4/2018-04-29_21.25/ structure_heatmaps/2x57
+    def add_forces(self,fig,n,network_forces=False,scaling=10,color='k'):
+        positions = self.carbon_data.getStructure(n)
+        if network_forces:
+            feed_positions = np.expand_dims(positions,axis=0)
+            forces = self.ml.get_forces_in_structures(feed_positions)[0]
+        else:
+            forces = scaling*self.carbon_data.data_forces[n]
+
+        for i,xy in enumerate(positions[:,0:2]):
+            x = xy[0]; y = xy[1]
+            dx = forces[i,0]; dy = forces[i,1]
+            plt.arrow(x,y,dx,dy,color=color,head_width=0.1)
+
+# usage: python structure_heatmap.py ../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba0.5k/2018-06-04_21.27/ structure_heatmaps_dual_dual/
 if __name__ == "__main__":
     model_dir = sys.argv[1]
     save_dir = sys.argv[2]
-    sem = StructureEnergyMap(model_dir)
+    sem = StructureEnergyMap(model_dir,with_forces=True)
 
     print(sem.get_energies_of_structure(0))
 
@@ -99,6 +113,8 @@ if __name__ == "__main__":
     for i,n in enumerate(ascending_energy_index_list[0:10]):
         fig.clf()
         fig = sem.structure_energy_map_figure_2D_2(fig,n)
+        sem.add_forces(fig,n,network_forces=False,color='k')
+        sem.add_forces(fig,n,network_forces=True,color='r')
         file_name = os.path.join(save_dir, "structure_heatmap_" + str(i) + ".svg")
         fig.savefig(file_name)
         print(file_name, "saved.")

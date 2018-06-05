@@ -1,0 +1,73 @@
+#!/bin/bash
+#SBATCH --job-name=Features
+#SBATCH --partition=q16
+#SBATCH --mem=1G
+#SBATCH --nodes=1
+#SBATCH --time=10:00:00
+#SBATCH --ntasks-per-node=8
+#SBATCH --cpus-per-task=1
+
+#MAX_CHILD_MAX=25
+#ulimit -u 2048
+#export OMP_NUM_THREADS=16
+
+echo "========= Job started  at $(date) =========="
+start=`date +%s`
+source ./bin/activate # Activate virtual environ
+source ./single_feature_save.sh
+
+# G1(eta, R_s, R_c)         *Note: naming of files follows this
+# G2(eta, zeta, lamb, R_c)  *
+# From amp article:
+# eta = 0.05 2 4 8 20 40 80
+# zeta, lambda = 1,+ 2,+ 3,+ 1,- 2,- 3,-
+# From PRL article:
+# R_c = 6Å (6)
+# R_s = 1 ...?
+#   I will guess
+# With G1 there are 7 combi, and with G2 7*6 = 42
+# That is 49
+
+#                   EXP_NAME,   FEATURE, ETA, ZETA, LAMB, R_C, R_S
+# calculate_feature G1_1.pickle G1       8    2     1     6    1  &
+
+# SAVE_DIR="features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/"
+# SAVE_DIR="features_mixed/non_relaxed_single0.8_relaxed0.2/"
+# SAVE_DIR="features_mixed/non_relaxed_double0.8_non_relaxed_double0.2/"
+SAVE_DIR="features_mixed/non_relaxed_double0.8_relaxed0.2/"
+
+# DATA_DIR="carbondata/MixedCarbon/non_relaxed_single0.8_non_relaxed_single0.2/"
+# DATA_DIR="carbondata/MixedCarbon/non_relaxed_single0.8_relaxed0.2/"
+# DATA_DIR="carbondata/MixedCarbon/non_relaxed_double0.8_non_relaxed_double0.2/"
+DATA_DIR="carbondata/MixedCarbon/non_relaxed_double0.8_relaxed0.2/"
+
+for R_c in 5; do
+#for R_c in $(seq -f %g SSS 0.1 EEE); do
+#for R_c in 4; do
+  for eta in 0.005 0.05 2 4 8 20 40 80; do
+    R_s=0
+    G1_name="G1_"$eta"_"$R_s"_"$R_c".pickle"
+    if [ ! -f $SAVE_DIR$G1_name ]; then
+      calculate_feature $G1_name     G1 $eta 0 0 $R_c $R_s $SAVE_DIR $DATA_DIR &
+    else
+      echo $G1_name" already exists."
+    fi
+  done
+
+  eta=0.005
+  for zeta in 1 2 4; do
+    for lambda in 1 -1; do
+      G2_name="G2_"$eta"_"$zeta"_"$lambda"_"$R_c".pickle"
+      if [ ! -f $SAVE_DIR$G2_name ]; then
+        calculate_feature $G2_name G2 $eta $zeta $lambda $R_c $R_s $SAVE_DIR $DATA_DIR &
+      else
+        echo $G2_name" already exists."
+      fi
+    done
+  done
+  wait
+done
+
+echo "========= Job finished at $(date) =========="
+end=`date +%s`
+echo "Time: "$((end-start))"s"

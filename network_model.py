@@ -127,7 +127,7 @@ class Model2:
                                                   reuse=tf.AUTO_REUSE)
                 return tf.nn.relu(h2, 'relu')
 
-        def model(G,train_dropout_rate,is_training):
+        def model(G,train_dropout_rate,is_training,activation_fn=tf.tanh):
             with tf.name_scope("layer_in"):
                 # Here ? means batch_size, and 24 is shorthand for the number of atoms in structure
                 # G is (batch_size, 24, fea_dim)
@@ -138,7 +138,7 @@ class Model2:
                     layer = tf.contrib.layers.fully_connected(inputs = G, # (?,24,fea_dim)
                                                               num_outputs = n_nodes_hl[0],
                                                               biases_initializer=tf.contrib.layers.xavier_initializer(),
-                                                              activation_fn=tf.nn.tanh,
+                                                              activation_fn=activation_fn,
                                                               scope = 'fc_in',
                                                               reuse=tf.AUTO_REUSE)
                     print(layer)
@@ -157,7 +157,7 @@ class Model2:
                     layer = tf.contrib.layers.fully_connected(inputs = layer,
                                                               num_outputs = n_nodes_hl[i],
                                                               biases_initializer=tf.contrib.layers.xavier_initializer(),
-                                                              activation_fn=tf.nn.tanh,
+                                                              activation_fn=activation_fn,
                                                               scope = 'fc_' + str(i),
                                                               reuse=tf.AUTO_REUSE)
                     print(layer)

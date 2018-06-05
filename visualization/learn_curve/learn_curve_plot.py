@@ -10,8 +10,8 @@ title = sys.argv[3]
 n,MAE_new,MAE_err = np.loadtxt(data_file)
 
 plt.errorbar(n,MAE_new,yerr=MAE_err,fmt='.b', markersize=2)
-#plt.ylim(.45,0.75)
+plt.ylim(.35,0.80)
 plt.title(title)
-plt.xlabel("$N$")
+plt.xlabel("Fraction of training set")
 plt.ylabel("$MAE\, [eV]$")
 plt.savefig(out_file)

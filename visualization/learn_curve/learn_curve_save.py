@@ -20,9 +20,9 @@ for model_dir in model_dirs:
 	except FileNotFoundError:
         	pass
 
-print(re.findall(r"struc(\d+\.\d|\d+)", mls[0].params["log_root_dir"])[0])
+print(re.findall(r"struc(\d+\.\d+|\d+)", mls[0].params["log_root_dir"])[0])
 
-n = [re.findall(r"struc(\d+\.\d|\d+)", ml.params["log_root_dir"])[0] for ml in mls]
+n = [re.findall(r"struc(\d+\.\d+|\d+)", ml.params["log_root_dir"])[0] for ml in mls]
 n = np.array(n)
 n = n.astype(float)
 

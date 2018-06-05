@@ -1,0 +1,14 @@
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_0.005_0_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_0.05_0_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_20_0_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_2_0_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_40_0_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_4_0_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_80_0_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_8_0_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_1_-1_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_1_1_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_2_-1_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_2_1_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_4_-1_5.pickle
+features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_4_1_5.pickle

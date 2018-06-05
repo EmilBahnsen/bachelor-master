@@ -2,8 +2,8 @@
 # Usage: . run_all_Rc.sh [test]
 DIR=$(pwd)
 cd .. # Back to root
-#for Rc in 5; do
-for Rc in $(seq -f %g 4 0.3 7); do
+for Rc in 5; do
+#for Rc in $(seq -f %g 2.5 0.1 5.5); do
 	fea_list='feature_lists/f13_Rc'$Rc'.txt'
 	echo $fea_list;
 	Rc=${fea_list/feature_lists\/f13_Rc/};

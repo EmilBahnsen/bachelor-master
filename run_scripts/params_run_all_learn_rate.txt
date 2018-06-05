@@ -1,6 +1,7 @@
 {
   "ntasks_per_node": 4, # Max 16 on q16
   "number_of_atoms": 24,
+  "shuffle_seed": 1,
   "structures_to_use": 1.0, # Means all
   "energy_interval": None,
   "train_part": 0.80,

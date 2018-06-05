@@ -25,7 +25,7 @@ ml = ModelLoader(log_dir)
 # [print(i) for i in ml.get_name_of_tensors()]
 # exit()
 
-cd = CarbonData(data_dir = "/home/bahnsen/carbon_nn/carbondata/bachelor2018-master/CarbonData")
+cd = CarbonData(data_dir = "/home/bahnsen/carbon_nn/carbondata/bachelor2018-master/CarbonData", random_seed=None)
 
 n_structures = 1000
 def create_structures(n_atoms,x_start,x_end,structure_fun):
@@ -59,17 +59,23 @@ def benzene_structure_fun(z):
 	return xyz
 structures_benzene_z,z_benzene = create_structures(6,-3,3, benzene_structure_fun)
 
+# Global minimum
+glob_min_index = 7573
+positions_glob_min = np.array(cd.data_positions[glob_min_index])
+positions_glob_min -= np.mean(positions_glob_min, axis=0) # Center at origin
+structures_glob_min,scale_glob_min = create_structures(24,0.1,3.0, lambda x: x*positions_glob_min)
+
 os.chdir("/home/bahnsen/carbon_nn")
 E_known,_ = ml.get_energy_of_structures(cd.data_positions[0:5],precision=precision)
 print("Sanity check:")
 print("Prediction: ",np.reshape(E_known,(-1)))
 print("Actual: ",cd.data_energies[0:5])
 E_dimer,dimer_outside = ml.get_energy_of_structures(structures_dimer,precision=precision)
-print(dimer_outside)
 E_trimer_linear,trimer_linear_outside = ml.get_energy_of_structures(structures_trimer_linear,precision=precision)
 E_trimer,trimer_outside = ml.get_energy_of_structures(structures_trimer,precision=precision)
 E_benzene_r,benzene_r_outside = ml.get_energy_of_structures(structures_benzene_r,precision=precision)
 E_benzene_z,benzene_z_outside = ml.get_energy_of_structures(structures_benzene_z,precision=precision)
+E_glob_min,glob_min_outside = ml.get_energy_of_structures(structures_glob_min,precision=precision)
 os.chdir("/home/bahnsen/carbon_nn/visualization/pos_E")
 
 fig = plt.figure(0)
@@ -103,3 +109,7 @@ fig.savefig("pos_E_benzene_r.pdf")
 
 plot_figure(z_benzene,E_benzene_z,benzene_z_outside,"$C_6$ benzene energy prediction at R = %.2f Å" % R_trimer, "z-offset [Å]", "Predicted E [eV]", [-3,3])
 fig.savefig("pos_E_benzene_z.pdf")
+
+plot_figure(scale_glob_min,E_glob_min,glob_min_outside,"Scaled global minimum", "Scale", "Predicted E [eV]", [0.1,3.0])
+fig.savefig("pos_E_glob_min.pdf")
+

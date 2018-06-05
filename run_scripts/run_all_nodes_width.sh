@@ -2,9 +2,9 @@
 # usage: . run_all_nodes_width.sh [test]
 DIR=$(pwd)
 cd .. # Back to root
-for node_num in $(seq -f %g 26 1 34); do
-#for node_num in 57; do
-	sed 's/NNN/'$node_num'/g' run_scripts/params_run_all_nodes_width.txt > params.tmp
-	. network_train.sh params.tmp $1
+#for node_num in $(seq -f %g 20 2 80); do
+for node_num in $(seq 10 1 30); do
+	sed 's/NNN/'$node_num'/g' run_scripts/$1 > params.tmp
+	. network_train.sh params.tmp $2
 done
 cd $DIR

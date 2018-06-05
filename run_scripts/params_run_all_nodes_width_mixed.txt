@@ -1,0 +1,24 @@
+{
+  "ntasks_per_node": 4, # Max 16 on q16
+  "number_of_atoms": 24,
+  "shuffle_seed": None,
+  "structures_to_use": 1.0, # Means all
+  "energy_interval": None,
+  "train_part": 0.80,
+  "n_epochs": 25000,
+  "summary_interval": 1000,
+  "max_checkpoints_keep": 1,
+  "batch_size": 500, # 0: using all data, and uniform_batch has no effect
+  "uniform_batch": False,
+  "learning_rate": 1e-3,
+  "feature_scaling":     {"type": "z-score"}, # {"type": "z-score"} or {"type": "min-max", "interval": [0,1]} or None
+  "train_dropout_rate":  [0,0],
+  "hidden_neuron_count": [NNN,NNN],
+  "log_root_dir": "./logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/NNN-NNN_ba0.5k",
+  #"log_root_dir": "./logs/nn_logs/test",
+  "data_directory": "carbondata/MixedCarbon/non_relaxed_double0.8_relaxed0.2",
+  "feature_directory": "features_mixed/non_relaxed_double0.8_relaxed0.2",
+  "feature_list_file": "features_mixed/non_relaxed_double0.8_relaxed0.2.txt", # A feature file overwrites the feature criteria
+  #"feature_criteria": {"eta": [0.05], "R_s": [0], "R_c": [1.2], "zeta": [1,2,3], "lambda": [1,-1]},
+  #"checkpoint_path": "model_final/2018-04-12_00.43_5x50"
+}

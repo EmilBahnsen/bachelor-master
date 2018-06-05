@@ -58,6 +58,7 @@ class NetworkTrainer:
         self.summary_interval = load_param("summary_interval")
         feature_scaling = load_param("feature_scaling")
         self.max_checkpoints_keep = load_param("max_checkpoints_keep")
+        random_seed = load_param("shuffle_seed")
 
         print("All parameters loaded.")
 
@@ -65,7 +66,7 @@ class NetworkTrainer:
         print("Loading features...")
 
         # Load the features specified
-        self.carbon_data = CarbonData(data_dir = data_dir, structure_size = self.n_atoms)
+        self.carbon_data = CarbonData(data_dir = data_dir, structure_size = self.n_atoms, random_seed=random_seed)
         self.featureProvider = FeatureDataProvider(feature_file_list, self.carbon_data, trainPart = train_part, trainFraction=structures_to_use, normalized_labels=False, feature_scaling=feature_scaling)
         print("Train samples:",len(self.featureProvider.train.labels))
         print("Test samples: ",len(self.featureProvider.test.labels))

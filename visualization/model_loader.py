@@ -76,6 +76,9 @@ class ModelLoader:
 
     # Extract the energy of a new struture from the position of the atoms
     def get_energy_of_structures(self,structures,precision=tf.float64):
+        here_path = os.path.dirname(os.path.realpath(__file__))
+        os.chdir('/home/bahnsen/carbon_nn') # Relative to the param-file paths
+
         feature_list_file   = self.params["feature_list_file"]
         data_dir            = self.params["data_directory"]
         n_atoms             = self.params["number_of_atoms"]
@@ -117,8 +120,42 @@ class ModelLoader:
         # Calc what structurs have features outside of trainnig set
         fea_min,fea_max = feature_provider.get_feature_space_hypercube_bonuds()
         out_of_train_index = ((feature_vectors < fea_min) | (feature_vectors > fea_max)).any(axis=2).sum(axis=1)
+
+        # Back again
+        os.chdir(here_path)
         
         return energies, out_of_train_index
+
+    def get_forces_in_structures(self,structures,precision=tf.float64):
+        n_structures = len(structures)
+        n_atoms = self.params["number_of_atoms"]
+
+        forces = np.ndarray((n_structures,n_atoms,3))
+
+        # Perturb each atom in x,y,z and find the negative gradient as the force
+        dl = 0.1
+        pertubed_structures = np.ndarray(tuple([n_atoms,3]) + structures.shape)
+        for i_atom in range(n_atoms):
+            for i_xyz in range(3):
+                for i_struc, struc in enumerate(structures):
+                    pertubed_structures[i_atom,i_xyz,i_struc] = struc
+                    pertubed_structures[i_atom,i_xyz,i_struc,i_atom,i_xyz] += dl
+
+
+        # Calculate the energies of these portubed strutures
+        feed_structures = np.reshape(pertubed_structures, tuple([3*n_atoms*n_structures]) + structures.shape[1:3])
+        E_structures,_ = self.get_energy_of_structures(feed_structures)
+        E_structures = np.reshape(E_structures, (n_structures,n_atoms,3))
+
+        E_references,_ = self.get_energy_of_structures(structures)
+
+        for i_struc in range(n_structures):
+            for i_atom in range(n_atoms):
+                for i_xyz in range(3):
+                    dE = E_structures[i_struc,i_atom,i_xyz] - E_references[i_struc]
+                    forces[i_struc, i_atom, i_xyz] = dE/dl
+
+        return forces
 
     def get_all_variables(self):
         with self.graph.as_default():
