@@ -1,0 +1,52 @@
+#!/bin/bash
+#SBATCH --job-name=ForceCalc
+#SBATCH --partition=q16
+#SBATCH --mem=60G
+#SBATCH --nodes=1
+#SBATCH --time=48:00:00
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+
+#MAX_CHILD_MAX=25
+#ulimit -u 2048
+#export OMP_NUM_THREADS=16
+
+echo "========= Job started  at $(date) =========="
+start=`date +%s`
+source ~/carbon_nn/bin/activate # Activate virtual environ
+
+python -m cProfile forces_save_test.py "../../logs/mixed_log/multi_perturb/features_few/Rc5/z-score/29-29-29_ba5pct/struc1/2018-06-06_10.13/" "test.npy" && echo "Saved test" &
+
+# multi perturb
+# for i in $(seq -f %g 0.05 0.05 1.0); do
+#   python forces_save_test.py "../../logs/mixed_log/multi_perturb/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-06_10.13/" "all_forces_test_multi_perturb-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_multi_perturb-29-29-29_struc"$i".npy" &
+# done
+
+# dual dual
+# for i in $(seq -f %g 0.05 0.05 0.25); do
+#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-06_10.12/" "all_forces_test_dual_dual-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_dual-29-29-29_struc"$i".npy" &
+# done
+# for i in $(seq -f %g 0.25 0.05 1.0); do
+#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-06_10.13/" "all_forces_test_dual_dual-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_dual-29-29-29_struc"$i".npy" &
+# done
+
+# dual relax
+# for i in $(seq -f %g 0.25 0.05 1.0); do
+#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-06_10.13/" "all_forces_test_dual_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_relax-29-29-29_struc"$i".npy" &
+# done
+
+# single single
+# for i in $(seq -f %g 0.05 0.05 1.0); do
+#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-06_10.12/" "all_forces_test_single_single-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_single-29-29-29_struc"$i".npy" &
+# done
+
+# single relax
+# for i in $(seq -f %g 0.05 0.05 1.0); do
+#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-06_10.12/" "all_forces_test_single_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_relax-29-29-29_struc"$i".npy" &
+# done
+
+wait
+
+echo "========= Job finished at $(date) =========="
+end=`date +%s`
+echo "Time: "$((end-start))"s"

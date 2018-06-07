@@ -59,6 +59,7 @@ plt.legend([
 	"$\eta = 80$",
 	])
 plt.xlim(xmin=0, xmax=3.5)
+plt.tight_layout()
 fig1.savefig("G1.pdf")
 
 fig1 = plt.figure(1)
@@ -77,4 +78,5 @@ plt.legend([
 	])
 plt.xticks(np.arange(0, 190, step=20))
 plt.xlim(xmin=0, xmax=180)
+plt.tight_layout()
 fig1.savefig("G2.pdf")

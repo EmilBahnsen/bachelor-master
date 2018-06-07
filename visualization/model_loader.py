@@ -76,7 +76,7 @@ class ModelLoader:
 
     # Extract the energy of a new struture from the position of the atoms
     def get_energy_of_structures(self,structures,precision=tf.float64):
-        here_path = os.path.dirname(os.path.realpath(__file__))
+        here_path = os.getcwd()
         os.chdir('/home/bahnsen/carbon_nn') # Relative to the param-file paths
 
         feature_list_file   = self.params["feature_list_file"]
@@ -133,14 +133,12 @@ class ModelLoader:
         forces = np.ndarray((n_structures,n_atoms,3))
 
         # Perturb each atom in x,y,z and find the negative gradient as the force
-        dl = 0.1
+        dl = 0.01
         pertubed_structures = np.ndarray(tuple([n_atoms,3]) + structures.shape)
+        pertubed_structures[:,:,:] = np.broadcast_to(structures, pertubed_structures.shape)
         for i_atom in range(n_atoms):
             for i_xyz in range(3):
-                for i_struc, struc in enumerate(structures):
-                    pertubed_structures[i_atom,i_xyz,i_struc] = struc
-                    pertubed_structures[i_atom,i_xyz,i_struc,i_atom,i_xyz] += dl
-
+                pertubed_structures[i_atom,i_xyz,:,i_atom,i_xyz] += dl
 
         # Calculate the energies of these portubed strutures
         feed_structures = np.reshape(pertubed_structures, tuple([3*n_atoms*n_structures]) + structures.shape[1:3])
@@ -149,11 +147,12 @@ class ModelLoader:
 
         E_references,_ = self.get_energy_of_structures(structures)
 
+        # Find forces in x,y,z
         for i_struc in range(n_structures):
             for i_atom in range(n_atoms):
                 for i_xyz in range(3):
                     dE = E_structures[i_struc,i_atom,i_xyz] - E_references[i_struc]
-                    forces[i_struc, i_atom, i_xyz] = dE/dl
+                    forces[i_struc, i_atom, i_xyz] = -dE/dl # F = -grad(E)
 
         return forces
 

@@ -8,6 +8,12 @@ positions_all = np.reshape(positions_all, (3,n_structures,24,3))
 energies_all = np.load('pEnergy.npy')
 energies_all = np.reshape(energies_all, (3,n_structures))
 forces_all = np.load('pForces.npy')
+# [print(x) for x in forces_all[0:24]]
+# print()
+# [print(x) for x in forces_all[24:2*24]]
+# print()
+# [print(x) for x in forces_all[2*24:3*24]]
+# print()
 forces_all = np.reshape(forces_all, (3,n_structures,24,3))
 
 # Shuffle
@@ -28,6 +34,8 @@ E_non_relax1 = energies_all[1,:]
 E_non_relax2 = energies_all[2,:]
 
 F_relax = forces_all[0,:,:,:]
+# print(F_relax[0])
+# exit()
 F_non_relax1 = forces_all[1,:,:,:]
 F_non_relax2 = forces_all[2,:,:,:]
 
