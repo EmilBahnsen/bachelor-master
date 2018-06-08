@@ -32,7 +32,7 @@ cd = CarbonData(data_dir = os.path.join('/home/bahnsen/carbon_nn/',ml.params["da
 n_structures = len(cd.data_energies)
 index_split = int((n_structures-1)*0.8)
 print("Split at", index_split)
-all_forces_test = ml.get_forces_in_structures(cd.data_positions[index_split:-1])
+all_forces_test = ml.get_forces_in_structures(cd.data_positions[index_split:])
 all_forces_test = np.array(all_forces_test)
 np.save(save_file, all_forces_test)
 print(all_forces_test)

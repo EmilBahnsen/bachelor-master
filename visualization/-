@@ -1,4 +1,4 @@
-2018-06-06 20:11:51.221066: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-06-07 14:11:41.048251: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
 /home/bahnsen/carbon_nn/visualization/../features_mixed/multi_perturb/G1_0.05_0_5.pickle
 /home/bahnsen/carbon_nn/visualization/../features_mixed/multi_perturb/G1_20_0_5.pickle
 /home/bahnsen/carbon_nn/visualization/../features_mixed/multi_perturb/G1_2_0_5.pickle
@@ -13,6 +13,7 @@
 /home/bahnsen/carbon_nn/visualization/../features_mixed/multi_perturb/G2_0.005_4_-1_5.pickle
 /home/bahnsen/carbon_nn/visualization/../features_mixed/multi_perturb/G2_0.005_4_1_5.pickle
 Using feature scaling:  z-score
+Saveing index: 8000
 features_mixed/multi_perturb/G1_0.05_0_5.pickle
 features_mixed/multi_perturb/G1_20_0_5.pickle
 features_mixed/multi_perturb/G1_2_0_5.pickle
@@ -78,6 +79,7 @@ Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
 structure_heatmaps_multi_perturb/structure_heatmap_0.svg saved.
+Saveing index: 8001
 features_mixed/multi_perturb/G1_0.05_0_5.pickle
 features_mixed/multi_perturb/G1_20_0_5.pickle
 features_mixed/multi_perturb/G1_2_0_5.pickle
@@ -143,6 +145,7 @@ Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
 structure_heatmaps_multi_perturb/structure_heatmap_1.svg saved.
+Saveing index: 8002
 features_mixed/multi_perturb/G1_0.05_0_5.pickle
 features_mixed/multi_perturb/G1_20_0_5.pickle
 features_mixed/multi_perturb/G1_2_0_5.pickle
@@ -208,6 +211,7 @@ Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
 structure_heatmaps_multi_perturb/structure_heatmap_2.svg saved.
+Saveing index: 8003
 features_mixed/multi_perturb/G1_0.05_0_5.pickle
 features_mixed/multi_perturb/G1_20_0_5.pickle
 features_mixed/multi_perturb/G1_2_0_5.pickle
@@ -273,6 +277,7 @@ Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
 structure_heatmaps_multi_perturb/structure_heatmap_3.svg saved.
+Saveing index: 8004
 features_mixed/multi_perturb/G1_0.05_0_5.pickle
 features_mixed/multi_perturb/G1_20_0_5.pickle
 features_mixed/multi_perturb/G1_2_0_5.pickle
@@ -338,6 +343,7 @@ Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
 structure_heatmaps_multi_perturb/structure_heatmap_4.svg saved.
+Saveing index: 8005
 features_mixed/multi_perturb/G1_0.05_0_5.pickle
 features_mixed/multi_perturb/G1_20_0_5.pickle
 features_mixed/multi_perturb/G1_2_0_5.pickle
@@ -403,6 +409,7 @@ Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
 structure_heatmaps_multi_perturb/structure_heatmap_5.svg saved.
+Saveing index: 8006
 features_mixed/multi_perturb/G1_0.05_0_5.pickle
 features_mixed/multi_perturb/G1_20_0_5.pickle
 features_mixed/multi_perturb/G1_2_0_5.pickle
@@ -415,10 +422,7 @@ features_mixed/multi_perturb/G2_0.005_1_1_5.pickle
 features_mixed/multi_perturb/G2_0.005_2_-1_5.pickle
 features_mixed/multi_perturb/G2_0.005_2_1_5.pickle
 features_mixed/multi_perturb/G2_0.005_4_-1_5.pickle
-features_mixed/multi_perturb/G2_0.005_4_1_5.pickle
-Using feature scaling:  z-score
-Tensor("G:0", shape=(?, 24, 13), dtype=float64)
-/home/bahnsen/carbon_nn/lib/python3.6/site-packages/tfplot/__init__.py:6: UserWarning: 
+features_mixed/multi_perturb/G2_0.005_4_1_5.pickle/home/bahnsen/carbon_nn/lib/python3.6/site-packages/tfplot/__init__.py:6: UserWarning: 
 This call to matplotlib.use() has no effect because the backend has already
 been chosen; matplotlib.use() must be called *before* pylab, matplotlib.pyplot,
 or matplotlib.backends is imported for the first time.
@@ -435,6 +439,9 @@ The backend was *originally* set to 'TkAgg' by the following code:
 
 
   matplotlib.use('Agg')
+
+Using feature scaling:  z-score
+Tensor("G:0", shape=(?, 24, 13), dtype=float64)
 Tensor("layer_in/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_in/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
@@ -485,6 +492,7 @@ Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
 structure_heatmaps_multi_perturb/structure_heatmap_6.svg saved.
+Saveing index: 8007
 features_mixed/multi_perturb/G1_0.05_0_5.pickle
 features_mixed/multi_perturb/G1_20_0_5.pickle
 features_mixed/multi_perturb/G1_2_0_5.pickle
@@ -550,6 +558,7 @@ Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
 structure_heatmaps_multi_perturb/structure_heatmap_7.svg saved.
+Saveing index: 8008
 features_mixed/multi_perturb/G1_0.05_0_5.pickle
 features_mixed/multi_perturb/G1_20_0_5.pickle
 features_mixed/multi_perturb/G1_2_0_5.pickle
@@ -615,6 +624,7 @@ Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
 structure_heatmaps_multi_perturb/structure_heatmap_8.svg saved.
+Saveing index: 8009
 features_mixed/multi_perturb/G1_0.05_0_5.pickle
 features_mixed/multi_perturb/G1_20_0_5.pickle
 features_mixed/multi_perturb/G1_2_0_5.pickle
@@ -680,88 +690,89 @@ Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
 structure_heatmaps_multi_perturb/structure_heatmap_9.svg saved.
-XIO:  fatal IO error 0 (Success) on X server "localhost:28.0"
-      after 346 requests (346 known processed) with 1 events remaining.
-ape=(?, 24, 1), dtype=float64)
-Tensor("sigma_E/Sum:0", shape=(?, 1), dtype=float64)
-Tensor("Placeholder:0", shape=(?, 24, 13), dtype=float64)
-Tensor("layer_in_1/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_in_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2_1/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
-Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
-structure_heatmaps_dual_relaxed/structure_heatmap_8.svg saved.
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_0.05_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_20_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_2_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_40_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_4_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_80_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_8_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G2_0.005_1_-1_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G2_0.005_1_1_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G2_0.005_2_-1_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G2_0.005_2_1_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G2_0.005_4_-1_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G2_0.005_4_1_5.pickle
-Using feature scaling:  z-score
-Tensor("G:0", shape=(?, 24, 13), dtype=float64)
-Tensor("layer_in/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_in/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_out/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
-Tensor("sigma_E/Sum:0", shape=(?, 1), dtype=float64)
-Tensor("Placeholder:0", shape=(?, 24, 13), dtype=float64)
-Tensor("layer_in_1/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_in_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2_1/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
-Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_0.05_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_20_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_2_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_40_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_4_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_80_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G1_8_0_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G2_0.005_1_-1_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G2_0.005_1_1_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G2_0.005_2_-1_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G2_0.005_2_1_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G2_0.005_4_-1_5.pickle
-features_mixed/non_relaxed_double0.8_relaxed0.2/G2_0.005_4_1_5.pickle
-Using feature scaling:  z-score
-Tensor("G:0", shape=(?, 24, 13), dtype=float64)
-Tensor("layer_in/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_in/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_out/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
-Tensor("sigma_E/Sum:0", shape=(?, 1), dtype=float64)
-Tensor("Placeholder:0", shape=(?, 24, 13), dtype=float64)
-Tensor("layer_in_1/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_in_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2_1/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
-Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
-structure_heatmaps_dual_relaxed/structure_heatmap_9.svg saved.
-XIO:  fatal IO errorXIO:  fatal IO error 0 (Success) on X server "localhost:28.0"
-      after 351 requests (351 known processed) with 1 events remaining.
 ), dtype=float64)
+Tensor("layer_2/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_out/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
+Tensor("sigma_E/Sum:0", shape=(?, 1), dtype=float64)
+Tensor("Placeholder:0", shape=(?, 24, 13), dtype=float64)
+Tensor("layer_in_1/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_in_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2_1/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
+Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
+structure_heatmaps_single_relaxed/structure_heatmap_8.svg saved.
+Saveing index: 8655
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_0.05_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_20_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_2_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_40_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_4_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_80_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_8_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_1_-1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_1_1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_2_-1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_2_1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_4_-1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_4_1_5.pickle
+Using feature scaling:  z-score
+Tensor("G:0", shape=(?, 24, 13), dtype=float64)
+Tensor("layer_in/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_in/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_out/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
+Tensor("sigma_E/Sum:0", shape=(?, 1), dtype=float64)
+Tensor("Placeholder:0", shape=(?, 24, 13), dtype=float64)
+Tensor("layer_in_1/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_in_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2_1/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
+Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_0.05_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_20_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_2_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_40_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_4_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_80_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_8_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_1_-1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_1_1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_2_-1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_2_1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_4_-1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_4_1_5.pickle
+Using feature scaling:  z-score
+Tensor("G:0", shape=(?, 24, 13), dtype=float64)
+Tensor("layer_in/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_in/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_out/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
+Tensor("sigma_E/Sum:0", shape=(?, 1), dtype=float64)
+Tensor("Placeholder:0", shape=(?, 24, 13), dtype=float64)
+Tensor("layer_in_1/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_in_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2_1/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
+Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
+structure_heatmaps_single_relaxed/structure_heatmap_9.svg saved.
+hape=(?, 1), dtype=float64)
+Tensor("Placeholder:0", shape=(?, 24, 13), dtype=float64)
+Tensor("layer_in_1/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_in_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_1_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_1_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
@@ -802,5 +813,4 @@ Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
 structure_heatmaps_dual_dual/structure_heatmap_9.svg saved.
-XIO:  fatal IO error 0 (Success) on X server "localhost:28.0"
-      after 349 requests (349 known processed) with 1 events remaining.
+e_single/structure_heatmap_9.svg saved.

@@ -141,18 +141,27 @@ class ModelLoader:
                 pertubed_structures[i_atom,i_xyz,:,i_atom,i_xyz] += dl
 
         # Calculate the energies of these portubed strutures
-        feed_structures = np.reshape(pertubed_structures, tuple([3*n_atoms*n_structures]) + structures.shape[1:3])
+        feed_structures = np.reshape(pertubed_structures, tuple([n_atoms*3*n_structures]) + structures.shape[1:3])
+        # print(tuple([n_atoms*3*n_structures]) + structures.shape[1:3])
+        # np.save("two.npy", feed_structures[:len(feed_structures)-1])
+        # exit()
         E_structures,_ = self.get_energy_of_structures(feed_structures)
-        E_structures = np.reshape(E_structures, (n_structures,n_atoms,3))
+        E_structures = np.reshape(E_structures, (n_atoms,3,n_structures))
 
         E_references,_ = self.get_energy_of_structures(structures)
 
         # Find forces in x,y,z
-        for i_struc in range(n_structures):
-            for i_atom in range(n_atoms):
-                for i_xyz in range(3):
-                    dE = E_structures[i_struc,i_atom,i_xyz] - E_references[i_struc]
-                    forces[i_struc, i_atom, i_xyz] = -dE/dl # F = -grad(E)
+        dE = E_structures - np.reshape(E_references, (1,1,len(E_references)))
+        forces = np.moveaxis(-dE/dl,-1,0) # Make structure major array
+        # for i_struc in range(n_structures):
+        #     for i_atom in range(n_atoms):
+        #         for i_xyz in range(3):
+        #             dE = E_structures[i_atom,i_xyz,i_struc] - E_references[i_struc]
+        #             forces[i_struc, i_atom, i_xyz] = -dE/dl # F = -grad(E)
+
+        # print(forces)
+        # np.save("F_one.npy", forces)
+        # exit()
 
         return forces
 

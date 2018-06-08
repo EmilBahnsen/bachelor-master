@@ -92,7 +92,8 @@ class StructureEnergyMap:
     def add_forces(self,fig,n,network_forces=False,scaling=0.2,color='k'):
         positions = self.carbon_data.getStructure(n)
         if network_forces:
-            feed_positions = np.expand_dims(positions,axis=0)
+            #feed_positions = np.expand_dims(positions,axis=0)
+            feed_positions = np.array([self.carbon_data.getStructure(n)])
             forces = self.ml.get_forces_in_structures(feed_positions)[0]
         else:
             forces = self.carbon_data.data_forces[n]
@@ -118,12 +119,13 @@ if __name__ == "__main__":
     ascending_energy_index_list = np.argsort(energies)
 
     n_structures = sem.carbon_data.numberOfStructures
-    index_split = int((n_structures-1)*0.8)
+    index_split = int(n_structures*0.8)
 
     fig = plt.figure()
     #for i,n in enumerate(ascending_energy_index_list):
     #for i,n in enumerate(ascending_energy_index_list[0:10]):
     for i,n in enumerate(range(index_split,index_split+10)):
+        print("Saveing index:", n)
         fig.clf()
         fig = sem.structure_energy_map_figure_2D_2(fig,n)
         sem.add_forces(fig,n,network_forces=False,color='k')
