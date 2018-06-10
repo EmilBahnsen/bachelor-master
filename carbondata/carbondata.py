@@ -61,6 +61,7 @@ class CarbonData:
     #dataDir = os.path.join(fileDir, '../tests/carbondata/data')
 
     def __init__(self, data_dir, structure_size = 24, energy_interval = None, structures_to_use = 1.0, random_seed = 0, with_forces=False):
+        print("Randow seed = ", random_seed)
         energyDataPath = os.path.join(data_dir, 'energies.npy')
         positionDataPath = os.path.join(data_dir, 'positions.npy')
 

@@ -1,0 +1,34 @@
+2018-06-09 19:47:32.899730: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+/home/bahnsen/carbon_nn/lib/python3.6/site-packages/tfplot/__init__.py:6: UserWarning: 
+This call to matplotlib.use() has no effect because the backend has already
+been chosen; matplotlib.use() must be called *before* pylab, matplotlib.pyplot,
+or matplotlib.backends is imported for the first time.
+
+The backend was *originally* set to 'TkAgg' by the following code:
+  File "MAE_DFT_plot.py", line 1, in <module>
+    from visualization.structure_heatmap import *
+  File "/home/bahnsen/carbon_nn/visualization/structure_heatmap.py", line 1, in <module>
+    from visualization.model_loader import *
+  File "/home/bahnsen/carbon_nn/visualization/model_loader.py", line 7, in <module>
+    import matplotlib.pyplot as plt
+  File "/home/bahnsen/carbon_nn/lib/python3.6/site-packages/matplotlib/pyplot.py", line 71, in <module>
+    from matplotlib.backends import pylab_setup
+  File "/home/bahnsen/carbon_nn/lib/python3.6/site-packages/matplotlib/backends/__init__.py", line 16, in <module>
+    line for line in traceback.format_stack()
+
+
+  matplotlib.use('Agg')
+/home/bahnsen/carbon_nn/visualization/../features/G1_0.05_0_5.pickle
+/home/bahnsen/carbon_nn/visualization/../features/G1_20_0_5.pickle
+/home/bahnsen/carbon_nn/visualization/../features/G1_2_0_5.pickle
+/home/bahnsen/carbon_nn/visualization/../features/G1_40_0_5.pickle
+/home/bahnsen/carbon_nn/visualization/../features/G1_4_0_5.pickle
+/home/bahnsen/carbon_nn/visualization/../features/G1_80_0_5.pickle
+/home/bahnsen/carbon_nn/visualization/../features/G1_8_0_5.pickle
+/home/bahnsen/carbon_nn/visualization/../features/G2_0.005_1_-1_5.pickle
+/home/bahnsen/carbon_nn/visualization/../features/G2_0.005_1_1_5.pickle
+/home/bahnsen/carbon_nn/visualization/../features/G2_0.005_2_-1_5.pickle
+/home/bahnsen/carbon_nn/visualization/../features/G2_0.005_2_1_5.pickle
+/home/bahnsen/carbon_nn/visualization/../features/G2_0.005_4_-1_5.pickle
+/home/bahnsen/carbon_nn/visualization/../features/G2_0.005_4_1_5.pickle
+Using feature scaling:  z-score

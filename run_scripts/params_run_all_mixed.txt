@@ -12,9 +12,9 @@
   "uniform_batch": False,
   "learning_rate": 1e-3,
   "feature_scaling":     {"type": "z-score"}, # {"type": "z-score"} or {"type": "min-max", "interval": [0,1]} or None
-  "train_dropout_rate":  [0,0],
-  "hidden_neuron_count": [68,68],
-  "log_root_dir": "./logs/mixed_log/TTT/features_few/Rc5/z-score/68-68_ba5pct/strucNNN",
+  "train_dropout_rate":  [0,0,0],
+  "hidden_neuron_count": [29,29,29],
+  "log_root_dir": "./logs/mixed_log/TTT/features_few/Rc5/z-score/29-29-29_ba5pct/strucNNN",
   #"log_root_dir": "./logs/nn_logs/test",
   "data_directory": "carbondata/MixedCarbon/TTT",
   "feature_directory": "features_mixed/TTT",

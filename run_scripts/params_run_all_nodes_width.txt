@@ -1,5 +1,5 @@
 {
-  "ntasks_per_node": 16, # Max 16 on q16
+  "ntasks_per_node": 8, # Max 16 on q16
   "number_of_atoms": 24,
   "shuffle_seed": 1,
   "structures_to_use": 1.0, # Means all
@@ -12,9 +12,9 @@
   "uniform_batch": False,
   "learning_rate": 1e-3,
   "feature_scaling":     {"type": "z-score"}, # {"type": "z-score"} or {"type": "min-max", "interval": [0,1]} or None
-  "train_dropout_rate":  [0,0,0],
-  "hidden_neuron_count": [NNN,NNN,NNN],
-  "log_root_dir": "./logs/nn_logs/features_few/Rc5/z-score/NNN-NNN-NNN_ba0.5k",
+  "train_dropout_rate":  [0,0,0,0],
+  "hidden_neuron_count": [NNN,NNN,NNN,NNN],
+  "log_root_dir": "./logs/nn_logs/features_few/Rc5/z-score/NNN-NNN-NNN-NNN_ba0.5k",
   #"log_root_dir": "./logs/nn_logs/test",
   "data_directory": "carbondata/bachelor2018-master/CarbonData",
   "feature_directory": "features",

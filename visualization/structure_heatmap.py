@@ -10,21 +10,21 @@ def absolute_path_wrt_parent(path):
     return os.path.join(this_file_dir, "..", path)
 
 class StructureEnergyMap:
-    def __init__(self, model_dir, with_forces):
+    def __init__(self, model_dir, with_forces, random_seed=None):
         self.ml = ModelLoader(log_dir=model_dir)
 
         this_file_dir = os.path.dirname(os.path.abspath(__file__))
         absolute_data_dir_path = os.path.join(this_file_dir, "..", self.ml.params["data_directory"])
         self.carbon_data = CarbonData(data_dir = absolute_data_dir_path,
                                       structure_size = self.ml.params["number_of_atoms"],
-                                      random_seed=None,with_forces=with_forces)
+                                      random_seed=random_seed,with_forces=with_forces)
         
         # Open feature file list and put it into a list
         feature_list_file = absolute_path_wrt_parent(self.ml.params["feature_list_file"])
         feature_file_list = [os.path.join(this_file_dir, "..", x.strip()) for x in open(feature_list_file, "r").readlines()]
         self.featureProvider = FeatureDataProvider(feature_file_list,
                                                    self.carbon_data, 
-                                                   trainPart = 1.0, 
+                                                   trainPart = self.ml.params["train_part"], 
                                                    normalized_labels=False, 
                                                    feature_scaling=self.ml.params["feature_scaling"])
 
@@ -47,7 +47,9 @@ class StructureEnergyMap:
     def structure_atom_energies(self):
         if self._structure_atom_energies is None:
             #[print(x) for x in self.ml.get_name_of_tensors()]
-            all_data = self.featureProvider.train.data
+            print(self.featureProvider.train.data.shape, self.featureProvider.test.data.shape)
+            all_data = np.append(self.featureProvider.train.data, self.featureProvider.test.data, axis=0)
+            print(all_data.shape)
             self._structure_atom_energies = self.ml.eval_tensor_by_name("layer_out/fc_out/Tensordot:0", all_data)
             self._structure_atom_energies = np.squeeze(self._structure_atom_energies)
         return self._structure_atom_energies
@@ -108,10 +110,12 @@ class StructureEnergyMap:
 # usage: python structure_heatmap.py ../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc1/2018-06-06_10.13/ structure_heatmaps_dual_dual/
 # usage: python structure_heatmap.py ../logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc1/2018-06-06_10.13/ structure_heatmaps_dual_relaxed/
 # usage: python structure_heatmap.py ../logs/mixed_log/multi_perturb/features_few/Rc5/z-score/29-29-29_ba5pct/struc1/2018-06-06_10.13 structure_heatmaps_multi_perturb/
+# usage: python structure_heatmap.py ../logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba5pct/struc1/2018-05-31_01.00/ original_struc1/
 if __name__ == "__main__":
     model_dir = sys.argv[1]
     save_dir = sys.argv[2]
-    sem = StructureEnergyMap(model_dir,with_forces=True)
+    with_forces = False
+    sem = StructureEnergyMap(model_dir,with_forces=with_forces,random_seed=0)
 
     #print(sem.get_energies_of_structure(0))
 
@@ -124,12 +128,14 @@ if __name__ == "__main__":
     fig = plt.figure()
     #for i,n in enumerate(ascending_energy_index_list):
     #for i,n in enumerate(ascending_energy_index_list[0:10]):
-    for i,n in enumerate(range(index_split,index_split+10)):
+    #for i,n in enumerate(range(index_split,index_split+10)):
+    for i,n in enumerate(range(9217,9217+1)):
         print("Saveing index:", n)
         fig.clf()
         fig = sem.structure_energy_map_figure_2D_2(fig,n)
-        sem.add_forces(fig,n,network_forces=False,color='k')
-        sem.add_forces(fig,n,network_forces=True,color='r')
+        if with_forces:
+            sem.add_forces(fig,n,network_forces=False,color='k')
+            sem.add_forces(fig,n,network_forces=True,color='r')
         file_name = os.path.join(save_dir, "structure_heatmap_" + str(i) + ".svg")
         fig.savefig(file_name)
         print(file_name, "saved.")

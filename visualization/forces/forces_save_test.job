@@ -18,6 +18,9 @@ source ~/carbon_nn/bin/activate # Activate virtual environ
 # python forces_save_test.py "../../logs/mixed_log/multi_perturb/features_few/Rc5/z-score/29-29-29_ba5pct/struc0.05/2018-06-06_10.13/" "test.npy" && echo "Saved test" &
 
 # multi perturb 29-29-29
+# for i in 0.001 0.005 0.01; do
+#   python forces_save_test.py "../../logs/mixed_log/multi_perturb/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-08_11.58/" "all_forces_test_multi_perturb-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_multi_perturb-29-29-29_struc"$i".npy" &
+# done
 # for i in $(seq -f %g 0.05 0.05 0.5); do
 #   python forces_save_test.py "../../logs/mixed_log/multi_perturb/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-06_10.13/" "all_forces_test_multi_perturb-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_multi_perturb-29-29-29_struc"$i".npy" &
 # done
@@ -25,14 +28,22 @@ source ~/carbon_nn/bin/activate # Activate virtual environ
 #   python forces_save_test.py "../../logs/mixed_log/multi_perturb/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-06_10.13/" "all_forces_test_multi_perturb-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_multi_perturb-29-29-29_struc"$i".npy" &
 # done
 # multi perturb 68-68
+time_stamps=( "2018-06-08_00.07" "2018-06-08_00.08" "2018-06-08_00.08" "2018-06-08_00.10" "2018-06-08_00.12" "2018-06-08_00.15" "2018-06-08_00.15" "2018-06-08_00.16" "2018-06-08_00.18" "2018-06-08_00.20" "2018-06-08_00.23" "2018-06-08_00.24" "2018-06-08_00.24" "2018-06-08_00.30" "2018-06-08_00.32" "2018-06-08_00.33" "2018-06-08_00.33" "2018-06-08_00.35" "2018-06-08_00.35" )
+j=0
 # for i in $(seq -f %g 0.05 0.05 0.5); do
-#   python forces_save_test.py "../../logs/mixed_log/multi_perturb/features_few/Rc5/z-score/68-68_ba5pct/struc"$i"/2018-06-06_14.26/" "all_forces_test_multi_perturb-68-68_struc"$i".npy" && echo "Saved all_forces_test_multi_perturb-68-68_struc"$i".npy" &
+#   python forces_save_test.py "../../logs/mixed_log/multi_perturb/features_few/Rc5/z-score/68-68_ba5pct/struc"$i"/"${time_stamps[$j]}"/" "all_forces_test_multi_perturb-68-68_struc"$i".npy" && echo "Saved all_forces_test_multi_perturb-68-68_struc"$i".npy" &
+#   j=$j+1
 # done
-for i in $(seq -f %g 0.55 0.05 1.0); do
-  python forces_save_test.py "../../logs/mixed_log/multi_perturb/features_few/Rc5/z-score/68-68_ba5pct/struc"$i"/2018-06-06_14.26/" "all_forces_test_multi_perturb-68-68_struc"$i".npy" && echo "Saved all_forces_test_multi_perturb-68-68_struc"$i".npy" &
-done
+j=10
+# for i in $(seq -f %g 0.55 0.05 1.0); do
+#   python forces_save_test.py "../../logs/mixed_log/multi_perturb/features_few/Rc5/z-score/68-68_ba5pct/struc"$i"/"${time_stamps[j]}"/" "all_forces_test_multi_perturb-68-68_struc"$i".npy" && echo "Saved all_forces_test_multi_perturb-68-68_struc"$i".npy" &
+# 	j=$j+1
+# done
 
 # dual dual
+# for i in 0.001 0.005 0.01; do
+#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-08_11.58/" "all_forces_test_dual_dual-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_dual-29-29-29_struc"$i".npy" &
+# done
 # for i in $(seq -f %g 0.05 0.05 0.25); do
 #   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-06_10.12/" "all_forces_test_dual_dual-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_dual-29-29-29_struc"$i".npy" &
 # done
@@ -41,6 +52,12 @@ done
 # done
 
 # dual relax
+time_stamps=( "2018-06-08_11.59" "2018-06-08_11.58" "2018-06-08_11.58" )
+j=0
+# for i in 0.001 0.005 0.01; do
+#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/"${time_stamps[$j]}"/" "all_forces_test_dual_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_relax-29-29-29_struc"$i".npy" &
+#   j=$j+1
+# done
 # for i in $(seq -f %g 0.05 0.05 0.5); do
 #   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-06_10.13/" "all_forces_test_dual_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_relax-29-29-29_struc"$i".npy" &
 # done
@@ -50,6 +67,9 @@ done
 
 
 # single single
+# for i in 0.001 0.005 0.01; do
+#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-08_11.58/" "all_forces_test_single_single-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_single-29-29-29_struc"$i".npy" &
+# done
 # for i in $(seq -f %g 0.05 0.05 0.5); do
 #   python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-06_10.12/" "all_forces_test_single_single-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_single-29-29-29_struc"$i".npy" &
 # done
@@ -58,6 +78,9 @@ done
 # done
 
 # single relax
+for i in 0.001 0.005 0.01; do
+  python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-08_11.58/" "all_forces_test_single_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_relax-29-29-29_struc"$i".npy" &
+done
 # for i in $(seq -f %g 0.05 0.05 0.5); do
 #   python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc"$i"/2018-06-06_10.12/" "all_forces_test_single_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_relax-29-29-29_struc"$i".npy" &
 # done
