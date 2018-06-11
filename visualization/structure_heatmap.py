@@ -114,12 +114,21 @@ class StructureEnergyMap:
 if __name__ == "__main__":
     model_dir = sys.argv[1]
     save_dir = sys.argv[2]
-    with_forces = False
-    sem = StructureEnergyMap(model_dir,with_forces=with_forces,random_seed=0)
+    with_forces = True
+    random_seed = None
+    sem = StructureEnergyMap(model_dir,with_forces=with_forces,random_seed=random_seed)
 
     #print(sem.get_energies_of_structure(0))
 
     energies = sem.carbon_data.data_energies
+    # plt.figure(0)
+    # forces = sem.carbon_data.data_forces
+    # print(forces.shape)
+    # forces = np.mean(np.linalg.norm(forces, axis=2),axis=1)
+    # plt.plot(range(len(forces)),forces,'-b')
+    # plt.show()
+    # input('')
+    # exit()
     ascending_energy_index_list = np.argsort(energies)
 
     n_structures = sem.carbon_data.numberOfStructures
@@ -128,8 +137,8 @@ if __name__ == "__main__":
     fig = plt.figure()
     #for i,n in enumerate(ascending_energy_index_list):
     #for i,n in enumerate(ascending_energy_index_list[0:10]):
-    #for i,n in enumerate(range(index_split,index_split+10)):
-    for i,n in enumerate(range(9217,9217+1)):
+    for i,n in enumerate(range(index_split,index_split+10)):
+    #for i,n in enumerate(range(9217,9217+1)):
         print("Saveing index:", n)
         fig.clf()
         fig = sem.structure_energy_map_figure_2D_2(fig,n)

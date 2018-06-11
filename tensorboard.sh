@@ -4,9 +4,10 @@ ulimit -m 2097152 #-v 2097152
 #DIRS="logs/nn_logs/features_few/Rc5/z-score/50-??-29_ba0.5k*/* logs/nn_logs/features_few/Rc5/z-score/??-29-29_ba0.5k/* logs/nn_logs/features_few/Rc5/z-score/29-??-29_ba0.5k/* logs/nn_logs/features_few/Rc5/z-score/29-29-??_ba0.5k/*"
 #DIRS="logs/nn_logs/features_few/Rc5/z-score/??-??-??-??_ba0.5k*/*"
 #DIRS="logs/nn_logs/features_few/Rc5/z-score/??-68_ba0.5k/* logs/nn_logs/features_few/Rc5/z-score/86-??_ba0.5k/*"
-#DIRS="logs/mixed_log/*/features_few/Rc5/z-score/*"
+DIRS="logs/mixed_log/*/features_few/Rc5/z-score/*_NEW"
 #DIRS="logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba0.5k/*"
-DIRS="logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba10k/*"
+#DIRS="logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba10k/*"
+#DIRS="logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/*"
 
 #DIRS="logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba0.5k logs/nn_logs/features_few/Rc5/z-score/identity logs/nn_logs/features_few/Rc5/z-score/leaky_relu logs/nn_logs/features_few/Rc5/z-score/relu logs/nn_logs/features_few/Rc5/z-score/selu logs/nn_logs/features_few/Rc5/z-score/sigmoid logs/nn_logs/features_few/Rc5/z-score/sign logs/nn_logs/features_few/Rc5/z-score/softplus logs/nn_logs/features_few/Rc5/z-score/tanh"
 #DIRS="logs/nn_logs/features_few/Rc5/z-score/*_ba0.5k/*"

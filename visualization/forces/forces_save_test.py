@@ -27,7 +27,8 @@ ml = ModelLoader(log_dir)
 # [print(i) for i in ml.get_name_of_tensors()]
 # exit()
 
-cd = CarbonData(data_dir = os.path.join('/home/bahnsen/carbon_nn/',ml.params["data_directory"]), random_seed=None)
+# random_seed None for mixed BUT 0 FOR REGULAR!!!
+cd = CarbonData(data_dir = os.path.join('/home/bahnsen/carbon_nn/',ml.params["data_directory"]), random_seed=0)
 
 n_structures = len(cd.data_energies)
 index_split = int((n_structures-1)*0.8)

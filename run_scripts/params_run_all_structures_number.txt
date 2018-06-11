@@ -5,20 +5,20 @@
   "structures_to_use": NNN, # 0 to 1.0
   "energy_interval": None,
   "train_part": 0.80,
-  "n_epochs": 30000,
+  "n_epochs": SSS,
   "summary_interval": 1000,
-  "max_checkpoints_keep": 5,
+  "max_checkpoints_keep": 1,
   "batch_size": BBB, # 0: using all data, and uniform_batch has no effect
   "uniform_batch": False,
   "learning_rate": 1e-3,
   "feature_scaling":     {"type": "z-score"}, # {"type": "z-score"} or {"type": "min-max", "interval": [0,1]} or None
-  "train_dropout_rate":  [0],
-  "hidden_neuron_count": [50],
-  "log_root_dir": "./logs/nn_logs/features_few/Rc2.73/z-score/50_ba5pct/strucNNN",
+  "train_dropout_rate":  [0,0,0],
+  "hidden_neuron_count": [29,29,29],
+  "log_root_dir": "./logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/strucNNN",
   #"log_root_dir": "./logs/nn_logs/test",
   "data_directory": "carbondata/bachelor2018-master/CarbonData",
   "feature_directory": "features",
-  "feature_list_file": "feature_lists/f13_Rc2.73.txt", # A feature file overwrites the feature criteria
+  "feature_list_file": "feature_lists/f13_Rc5.txt", # A feature file overwrites the feature criteria
   #"feature_criteria": {"eta": [0.05], "R_s": [0], "R_c": [1.2], "zeta": [1,2,3], "lambda": [1,-1]},
   #"checkpoint_path": "model_final/2018-04-12_00.43_5x50"
 }
