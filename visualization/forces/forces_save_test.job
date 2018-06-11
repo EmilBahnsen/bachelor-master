@@ -42,56 +42,72 @@ j=10
 
 # dual dual
 interval=$()
-# for i in 0.001 0.005 0.01; do
-#	path=$(echo ../../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
-#   python forces_save_test.py $path "all_forces_test_dual_dual-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_dual-29-29-29_struc"$i".npy" &
+# for i in 0.001 0.005 0.01 $(seq -f %g 0.05 0.05 0.25); do
+# 	path=$(echo ../../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
+# 	echo $path
+# 	python forces_save_test.py $path "all_forces_test_dual_dual-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_dual-29-29-29_struc"$i".npy" &
 # done
-# for i in $(seq -f %g 0.05 0.05 0.25); do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.21/" "all_forces_test_dual_dual-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_dual-29-29-29_struc"$i".npy" &
+# for i in $(seq -f %g 0.30 0.05 0.60); do
+# 	path=$(echo ../../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
+# 	echo $path
+# 	python forces_save_test.py $path "all_forces_test_dual_dual-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_dual-29-29-29_struc"$i".npy" &
 # done
-# for i in $(seq -f %g 0.25 0.05 1.0); do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.21/" "all_forces_test_dual_dual-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_dual-29-29-29_struc"$i".npy" &
+# for i in $(seq -f %g 0.65 0.05 1.0); do
+# 	path=$(echo ../../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
+# 	echo $path
+# 	python forces_save_test.py $path "all_forces_test_dual_dual-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_dual-29-29-29_struc"$i".npy" &
 # done
 
 # dual relax
-# for i in 0.001 0.005 0.01; do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.22/" "all_forces_test_dual_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_relax-29-29-29_struc"$i".npy" &
+# for i in 0.001 0.005 0.01 $(seq -f %g 0.05 0.05 0.25); do
+# 	path=$(echo ../../logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
+# 	echo $path
+# 	python forces_save_test.py $path "all_forces_test_dual_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_relax-29-29-29_struc"$i".npy" &
 # done
-# for i in 0.05 0.1; do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.21/" "all_forces_test_dual_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_relax-29-29-29_struc"$i".npy" &
+# for i in $(seq -f %g 0.30 0.05 0.60); do
+# 	path=$(echo ../../logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
+# 	echo $path
+# 	python forces_save_test.py $path "all_forces_test_dual_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_relax-29-29-29_struc"$i".npy" &
 # done
-# for i in $(seq -f %g 0.15 0.05 1.5); do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.22/" "all_forces_test_dual_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_relax-29-29-29_struc"$i".npy" &
+# for i in $(seq -f %g 0.65 0.05 1.0); do
+# 	path=$(echo ../../logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
+# 	echo $path
+# 	python forces_save_test.py $path "all_forces_test_dual_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_relax-29-29-29_struc"$i".npy" &
 # done
-# for i in $(seq -f %g 0.55 0.05 1.0); do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.22/" "all_forces_test_dual_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_dual_relax-29-29-29_struc"$i".npy" &
-# done
-
 
 # single single
-# for i in 0.001 0.005 0.01; do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.22/" "all_forces_test_single_single-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_single-29-29-29_struc"$i".npy" &
+# for i in 0.001 0.005 0.01 $(seq -f %g 0.05 0.05 0.25); do
+# 	path=$(echo ../../logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
+# 	echo $path
+# 	python forces_save_test.py $path "all_forces_test_single_single-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_single-29-29-29_struc"$i".npy" &
 # done
-# for i in 0.05 0.1; do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.20/" "all_forces_test_single_single-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_single-29-29-29_struc"$i".npy" &
+# for i in $(seq -f %g 0.30 0.05 0.60); do
+# 	path=$(echo ../../logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
+# 	echo $path
+# 	python forces_save_test.py $path "all_forces_test_single_single-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_single-29-29-29_struc"$i".npy" &
 # done
-# for i in $(seq -f %g 0.15 0.05 0.5); do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.21/" "all_forces_test_single_single-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_single-29-29-29_struc"$i".npy" &
-# done
-# for i in $(seq -f %g 0.55 0.05 1.0); do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.21/" "all_forces_test_single_single-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_single-29-29-29_struc"$i".npy" &
+# for i in $(seq -f %g 0.65 0.05 1.0); do
+# 	path=$(echo ../../logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
+# 	echo $path
+# 	python forces_save_test.py $path "all_forces_test_single_single-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_single-29-29-29_struc"$i".npy" &
 # done
 
 # single relax
-# for i in 0.001 0.005 0.01; do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.22/" "all_forces_test_single_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_relax-29-29-29_struc"$i".npy" &
+# for i in 0.001 0.005 0.01 $(seq -f %g 0.05 0.05 0.25); do
+# 	path=$(echo ../../logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
+# 	echo $path
+# 	python forces_save_test.py $path "all_forces_test_single_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_relax-29-29-29_struc"$i".npy" &
 # done
-# for i in $(seq -f %g 0.05 0.05 0.5); do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.21/" "all_forces_test_single_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_relax-29-29-29_struc"$i".npy" &
+# for i in $(seq -f %g 0.30 0.05 0.60); do
+# 	path=$(echo ../../logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
+# 	echo $path
+# 	python forces_save_test.py $path "all_forces_test_single_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_relax-29-29-29_struc"$i".npy" &
 # done
-# for i in $(seq -f %g 0.55 0.05 1.0); do
-#   python forces_save_test.py "../../logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_12.21/" "all_forces_test_single_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_relax-29-29-29_struc"$i".npy" &
-# done
+for i in $(seq -f %g 0.65 0.05 1.0); do
+	path=$(echo ../../logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-11_13.??/)
+	echo $path
+	python forces_save_test.py $path "all_forces_test_single_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_single_relax-29-29-29_struc"$i".npy" &
+done
 
 # relax-relax
 # for i in $(seq -f %g 0.05 0.05 0.2); do
@@ -101,10 +117,10 @@ interval=$()
 #   python forces_save_test.py "../../logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-10_20.32/" "all_forces_test_relax_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_relax_relax-29-29-29_struc"$i".npy" &
 # done
 
-sleep 7200
-for i in $(seq -f %g 0.8 0.05 1.0); do
-  python forces_save_test.py "../../logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-10_20.32/" "all_forces_test_relax_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_relax_relax-29-29-29_struc"$i".npy" &
-done
+# sleep 7200
+# for i in $(seq -f %g 0.8 0.05 1.0); do
+#   python forces_save_test.py "../../logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc"$i"/2018-06-10_20.32/" "all_forces_test_relax_relax-29-29-29_struc"$i".npy" && echo "Saved all_forces_test_relax_relax-29-29-29_struc"$i".npy" &
+# done
 
 wait
 

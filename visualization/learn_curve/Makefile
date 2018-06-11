@@ -1,7 +1,7 @@
 .PHONY: all
 all: learn_curve-29-29-29.pdf learn_curve-68-68.pdf learn_curve-50.pdf learn_curve-29-29-29_dual_point_relaxed.pdf learn_curve-29-29-29_single_point_relaxed.pdf learn_curve-29-29-29_multi_perturbed.pdf
 
-learn_curve_plot_combined_mixed.pdf: learn_curve_plot_combined_mixed.py learn_curve-29-29-29_dual_point_dual.txt learn_curve-29-29-29_dual_point_relaxed.txt learn_curve-29-29-29_single_point_single.txt learn_curve-29-29-29_single_point_relaxed.txt learn_curve-29-29-29_multi_perturbed.txt
+learn_curve_plot_combined_mixed.pdf: learn_curve_plot_combined_mixed.py learn_curve-29-29-29_dual_point_dual.txt learn_curve-29-29-29_dual_point_relaxed.txt learn_curve-29-29-29_single_point_single.txt learn_curve-29-29-29_single_point_relaxed.txt learn_curve-29-29-29_multi_perturbed.txt learn_curve-29-29-29.txt
 	python $< $@
 
 learn_curve_comined.pdf: learn_curve_plot_combined.py learn_curve-50.txt learn_curve-68-68.txt learn_curve-29-29-29.txt
@@ -19,28 +19,28 @@ learn_curve-68-68.txt: $(wildcard ~/carbon_nn/logs/nn_logs/features_few/Rc5/z-sc
 
 learn_curve-29-29-29.pdf: learn_curve-29-29-29.txt
 	python learn_curve_plot.py $< $@ "Learning curve for 13-29-29-29-1"
-learn_curve-29-29-29.txt: $(wildcard ~/carbon_nn/logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba5pct/struc*/*)
-	python learn_curve_save.py '~/carbon_nn/logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba5pct/struc*/*' $@ 300000
+learn_curve-29-29-29.txt: $(wildcard ~/carbon_nn/logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc*/*)
+	python learn_curve_save.py '~/carbon_nn/logs/nn_logs/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc*/*' $@ 500000
 
 learn_curve-29-29-29_dual_point_dual.pdf: learn_curve-29-29-29_dual_point_dual.txt
 	python learn_curve_plot.py $< $@ "Learning curve for 13-29-29-29-1 dual point"
-learn_curve-29-29-29_dual_point_dual.txt: $(wildcard ~/carbon_nn/logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc*/*)
-	python learn_curve_save.py '~/carbon_nn/logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc*/*' $@ 500000
+learn_curve-29-29-29_dual_point_dual.txt: $(wildcard ~/carbon_nn/logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc*/*)
+	python learn_curve_save.py '~/carbon_nn/logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc*/*' $@ 500000
 
 learn_curve-29-29-29_dual_point_relaxed.pdf: learn_curve-29-29-29_dual_point_relaxed.txt
 	python learn_curve_plot.py $< $@ "Learning curve for 13-29-29-29-1 dual point"
-learn_curve-29-29-29_dual_point_relaxed.txt: $(wildcard ~/carbon_nn/logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc*/*)
-	python learn_curve_save.py '~/carbon_nn/logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc*/*' $@ 500000
+learn_curve-29-29-29_dual_point_relaxed.txt: $(wildcard ~/carbon_nn/logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc*/*)
+	python learn_curve_save.py '~/carbon_nn/logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc*/*' $@ 500000
 
 learn_curve-29-29-29_single_point_single.pdf: learn_curve-29-29-29_single_point_single.txt
 	python learn_curve_plot.py $< $@ "Learning curve for 13-29-29-29-1 single point"
-learn_curve-29-29-29_single_point_single.txt: $(wildcard ~/carbon_nn/logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc*/*)
-	python learn_curve_save.py '~/carbon_nn/logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc*/*' $@ 500000
+learn_curve-29-29-29_single_point_single.txt: $(wildcard ~/carbon_nn/logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc*/*)
+	python learn_curve_save.py '~/carbon_nn/logs/mixed_log/non_relaxed_single0.8_non_relaxed_single0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc*/*' $@ 500000
 
 learn_curve-29-29-29_single_point_relaxed.pdf: learn_curve-29-29-29_single_point_relaxed.txt
 	python learn_curve_plot.py $< $@ "Learning curve for 13-29-29-29-1 single point"
-learn_curve-29-29-29_single_point_relaxed.txt: $(wildcard ~/carbon_nn/logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc*/*)
-	python learn_curve_save.py '~/carbon_nn/logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc*/*' $@ 500000
+learn_curve-29-29-29_single_point_relaxed.txt: $(wildcard ~/logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc*/*)
+	python learn_curve_save.py '~/carbon_nn/logs/mixed_log/non_relaxed_single0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct_NEW/struc*/*' $@ 500000
 
 learn_curve-29-29-29_multi_perturbed.pdf: learn_curve-29-29-29_multi_perturbed.txt
 	python learn_curve_plot.py $< $@ "Learning curve for 13-29-29-29-1 multiple pertubations"
