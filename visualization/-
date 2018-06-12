@@ -1,4 +1,4 @@
-2018-06-11 13:54:06.449854: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-06-12 01:13:40.902241: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
 Randow seed =  None
 /home/bahnsen/carbon_nn/visualization/../features_mixed/multi_perturb/G1_0.05_0_5.pickle
 /home/bahnsen/carbon_nn/visualization/../features_mixed/multi_perturb/G1_20_0_5.pickle
@@ -713,15 +713,7 @@ Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
 structure_heatmaps_multi_perturb/structure_heatmap_9.svg saved.
-le
-Using feature scaling:  z-score
-Tensor("G:0", shape=(?, 24, 13), dtype=float64)
-Tensor("layer_in/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_in/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E/Sum:0", shape=(?, 1), dtype=float64)
 Tensor("Placeholder:0", shape=(?, 24, 13), dtype=float64)
@@ -733,55 +725,22 @@ Tensor("layer_2_1/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
-Randow seed =  0
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_0.05_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_20_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_2_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_40_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_4_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_80_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_8_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_1_-1_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_1_1_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_2_-1_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_2_1_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_4_-1_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_4_1_5.pickle
-Using feature scaling:  z-score
-Tensor("G:0", shape=(?, 24, 13), dtype=float64)
-Tensor("layer_in/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_in/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_out/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
-Tensor("sigma_E/Sum:0", shape=(?, 1), dtype=float64)
-Tensor("Placeholder:0", shape=(?, 24, 13), dtype=float64)
-Tensor("layer_in_1/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_in_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_1_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2_1/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
-Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
-Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
-structure_heatmaps_single_single/structure_heatmap_8.svg saved.
+structure_heatmaps_single_relaxed/structure_heatmap_8.svg saved.
 Saveing index: 8655
 Randow seed =  0
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_0.05_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_20_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_2_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_40_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_4_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_80_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G1_8_0_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_1_-1_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_1_1_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_2_-1_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_2_1_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_4_-1_5.pickle
-features_mixed/non_relaxed_single0.8_non_relaxed_single0.2/G2_0.005_4_1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_0.05_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_20_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_2_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_40_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_4_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_80_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_8_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_1_-1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_1_1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_2_-1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_2_1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_4_-1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_4_1_5.pickle
 Using feature scaling:  z-score
 Tensor("G:0", shape=(?, 24, 13), dtype=float64)
 Tensor("layer_in/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
@@ -792,6 +751,50 @@ Tensor("layer_2/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_2/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_out/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
 Tensor("sigma_E/Sum:0", shape=(?, 1), dtype=float64)
+Tensor("Placeholder:0", shape=(?, 24, 13), dtype=float64)
+Tensor("layer_in_1/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_in_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2_1/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
+Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
+Randow seed =  0
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_0.05_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_20_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_2_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_40_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_4_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_80_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G1_8_0_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_1_-1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_1_1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_2_-1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_2_1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_4_-1_5.pickle
+features_mixed/non_relaxed_single0.8_relaxed0.2/G2_0.005_4_1_5.pickle
+Using feature scaling:  z-score
+Tensor("G:0", shape=(?, 24, 13), dtype=float64)
+Tensor("layer_in/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_in/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_out/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
+Tensor("sigma_E/Sum:0", shape=(?, 1), dtype=float64)
+Tensor("Placeholder:0", shape=(?, 24, 13), dtype=float64)
+Tensor("layer_in_1/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_in_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1_1/fc_1/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_1_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2_1/fc_2/Tanh:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_2_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)
+Tensor("layer_out_1/fc_out/Tensordot:0", shape=(?, 24, 1), dtype=float64)
+Tensor("sigma_E_1/Sum:0", shape=(?, 1), dtype=float64)
+structure_heatmaps_single_relaxed/structure_heatmap_9.svg saved.
+("sigma_E/Sum:0", shape=(?, 1), dtype=float64)
 Tensor("Placeholder:0", shape=(?, 24, 13), dtype=float64)
 Tensor("layer_in_1/fc_in/Tanh:0", shape=(?, 24, 29), dtype=float64)
 Tensor("layer_in_1/dropout/cond/Merge:0", shape=(?, 24, 29), dtype=float64)

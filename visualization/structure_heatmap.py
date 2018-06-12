@@ -61,7 +61,7 @@ class StructureEnergyMap:
         zs = points[:,2]
         return delta_s/self.delta_z * zs + min_size
 
-    def structure_energy_map_figure_2D_2(self,fig,n):
+    def structure_energy_map_figure_2D_2(self,fig,n,padding=2):
         atom_positions = self.carbon_data.getStructure(n)
         structure_energy = self.carbon_data.data_energies[n]
         atom_energies = self.get_energies_of_structure(n)
@@ -74,7 +74,7 @@ class StructureEnergyMap:
         ax = fig.add_subplot(111)
         E_tot = np.sum(atom_energies)
         DeltaE = structure_energy - E_tot
-        plt.title("Structure #" + str(n) + ", $E_N$={:.2f}eV".format(E_tot) + ", ΔE={:.2f}eV".format(DeltaE))
+        plt.title("Structure #" + str(n) + r", $E^{{NN}}$={:.2f}eV".format(E_tot) + ", ΔE={:.2f}eV".format(DeltaE))
 
         cc = CircleCollection(sizes=sizes,offsets=atom_positions[:,0:2],transOffset=ax.transData)
         cc.set_array(atom_energies)
@@ -82,16 +82,16 @@ class StructureEnergyMap:
         ax.autoscale_view()
         ax.axis("off")
         cbar = plt.colorbar(cc)
-        cbar.set_label('Energy [eV]')
+        cbar.set_label('Predicted energy [eV]')
 
         x = atom_positions[:,0]
         y = atom_positions[:,1]
-        ax.set_xlim(np.min(x) - 3, np.max(x) + 3)
-        ax.set_ylim(np.min(y) - 3, np.max(y) + 3)
+        ax.set_xlim(np.min(x) - padding, np.max(x) + padding)
+        ax.set_ylim(np.min(y) - padding, np.max(y) + padding)
 
         return fig
 
-    def add_forces(self,fig,n,network_forces=False,scaling=0.2,color='k'):
+    def add_forces(self,fig,n,network_forces=False,scaling=0.2,color='k',label=None):
         positions = self.carbon_data.getStructure(n)
         if network_forces:
             #feed_positions = np.expand_dims(positions,axis=0)
@@ -105,7 +105,8 @@ class StructureEnergyMap:
         for i,xy in enumerate(positions[:,0:2]):
             x = xy[0]; y = xy[1]
             dx = forces[i,0]; dy = forces[i,1]
-            plt.arrow(x,y,dx,dy,color=color,head_width=0.1)
+            plt.arrow(x,y,dx,dy,color=color,head_width=0.2)
+        plt.scatter(100,100, c=color, marker=r'$\longrightarrow$',s=20, label=label)
 
 # usage: python structure_heatmap.py ../logs/mixed_log/non_relaxed_double0.8_non_relaxed_double0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc1/2018-06-06_10.13/ structure_heatmaps_dual_dual/
 # usage: python structure_heatmap.py ../logs/mixed_log/non_relaxed_double0.8_relaxed0.2/features_few/Rc5/z-score/29-29-29_ba5pct/struc1/2018-06-06_10.13/ structure_heatmaps_dual_relaxed/
@@ -143,9 +144,10 @@ if __name__ == "__main__":
         fig.clf()
         fig = sem.structure_energy_map_figure_2D_2(fig,n)
         if with_forces:
-            sem.add_forces(fig,n,network_forces=False,color='k')
-            sem.add_forces(fig,n,network_forces=True,color='r')
+            sem.add_forces(fig,n,network_forces=False,color='k',label='DFT forces')
+            sem.add_forces(fig,n,network_forces=True,color='r',label='Predicted forces')
         file_name = os.path.join(save_dir, "structure_heatmap_" + str(i) + ".svg")
+        plt.gca().legend()
         fig.savefig(file_name)
         print(file_name, "saved.")
 

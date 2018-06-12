@@ -15,14 +15,16 @@ n_dd,MAE_new_dd,MAE_err_dd = np.loadtxt('learn_curve-29-29-29_dual_point_dual.tx
 n_dr,MAE_new_dr,MAE_err_dr = np.loadtxt('learn_curve-29-29-29_dual_point_relaxed.txt')
 n_mu,MAE_new_mu,MAE_err_mu = np.loadtxt('learn_curve-29-29-29_multi_perturbed.txt')
 n_old,MAE_new_old,MAE_err_old = np.loadtxt('learn_curve-29-29-29.txt')
+print("Multi last:",MAE_new_mu[-1])
+print("Relax last:",MAE_new_old[-1])
 
 
 matplotlib.rcParams.update({'font.size': 14})
 
-plt.loglog(n_ss*n_samples,MAE_new_ss,'--b', label='single-single point')
-plt.loglog(n_sr*n_samples,MAE_new_sr,'-b', label='single point-relax')
-plt.loglog(n_dd*n_samples,MAE_new_dd,'--r', label='dual-dual point')
-plt.loglog(n_dr*n_samples,MAE_new_dr,'-r', label='dual point-relax')
+plt.loglog(n_ss*n_samples,MAE_new_ss,'--b', label='single-point')
+plt.loglog(n_sr*n_samples,MAE_new_sr,'-b', label='single-point/relax')
+plt.loglog(n_dd*n_samples,MAE_new_dd,'--r', label='dual-point')
+plt.loglog(n_dr*n_samples,MAE_new_dr,'-r', label='dual-point/relax')
 plt.loglog(n_mu*n_samples,MAE_new_mu,'-k', label='multiple pertubations')
 plt.loglog(n_old*n_samples,MAE_new_old,'--k', label='relaxed')
 

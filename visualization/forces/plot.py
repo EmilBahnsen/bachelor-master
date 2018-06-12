@@ -17,6 +17,7 @@ forces["dual-dual"] = CarbonData("/home/bahnsen/carbon_nn/carbondata/MixedCarbon
 forces["dual-relax"] = CarbonData("/home/bahnsen/carbon_nn/carbondata/MixedCarbon/non_relaxed_double0.8_relaxed0.2/", random_seed=None, with_forces=True).data_forces[8645:]
 forces["single-single"] = CarbonData("/home/bahnsen/carbon_nn/carbondata/MixedCarbon/non_relaxed_single0.8_non_relaxed_single0.2/", random_seed=None, with_forces=True).data_forces[8645:]
 forces["single-relax"] = CarbonData("/home/bahnsen/carbon_nn/carbondata/MixedCarbon/non_relaxed_single0.8_relaxed0.2/", random_seed=None, with_forces=True).data_forces[8645:]
+forces["old"] = CarbonData("/home/bahnsen/carbon_nn/carbondata/bachelor2018-master/CarbonData/", random_seed=None, with_forces=True).data_forces[8645:]
 
 # print("NN forces")
 # print(forces_nn[0])
@@ -114,21 +115,26 @@ def force_leannig_curve(data_name_prefix,dataset_name,label=None,fmt='-'):
 	forces_real = forces[dataset_name]
 	n_dataset = (10000 - len(forces_real))
 
-	mean_delta_forces = np.ndarray(len(fraction_list))
+	mean_delta_forces = np.ndarray([])
+	draw_fraction_list = np.ndarray([])
 
 	for i,frac in enumerate(fraction_list):
 		data_name = data_name_prefix + frac + ".npy"
-		forces_nn = np.load(data_name)
+		try:
+			forces_nn = np.load(data_name)
+		except FileNotFoundError:
+			continue
 		min_index = min(len(forces_real), len(forces_nn))
 		mean_delta = mean_delta_force(forces_real[len(forces_real)-min_index+1:], forces_nn[len(forces_nn)-min_index+1:])
-		mean_delta_forces[i] = mean_delta
+		mean_delta_forces = np.append(mean_delta_forces,mean_delta)
+		draw_fraction_list = np.append(draw_fraction_list,frac)
 
 	plt.xlim(100,8000)
-	plt.ylim(0,5)
+	#plt.ylim(0,5)
 	# Rm the one outlier
 	pick_index = (mean_delta_forces < 100)
 	mean_delta_forces = mean_delta_forces[pick_index]
-	draw_fractions = fraction_list.astype(float)
+	draw_fractions = draw_fraction_list.astype(float)
 	draw_fractions = draw_fractions[pick_index]
 	plt.plot(n_dataset*draw_fractions, mean_delta_forces, fmt, label=label)
 	plt.gca().legend()
@@ -170,6 +176,8 @@ force_leannig_curve(data_name_prefix_sr, "single-relax")
 plt.title("Force learning curve for single point-relax")
 plt.savefig(data_name_prefix_sr + "_force_learn_curve.pdf")
 
+data_name_prefix_relaxed = "all_forces_test_relax_relax-29-29-29_struc"
+
 # Combined
 plt.clf()
 force_leannig_curve(data_name_prefix_ss, "single-single", "single-single point",fmt='--b')
@@ -177,5 +185,6 @@ force_leannig_curve(data_name_prefix_sr, "single-relax", "single point-relax",fm
 force_leannig_curve(data_name_prefix_dd, "dual-dual", "dual-dual point",fmt='--r')
 force_leannig_curve(data_name_prefix__dr, "dual-relax", "dual point-relax",fmt='-r')
 force_leannig_curve(data_name_prefix_multi, "multi-perturb", "multiple pertubations",fmt='-k')
+force_leannig_curve(data_name_prefix_relaxed, "old", "relaxed",fmt='--k')
 plt.title("Force learning curves")
 plt.savefig("force_learn_combined.pdf")

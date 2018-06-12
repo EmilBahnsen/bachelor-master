@@ -29,6 +29,7 @@ pos_non_relax_all = positions_all[:,1:3,:,:]
 pos_non_relax_all = np.reshape(pos_non_relax_all, (2*n_structures,24,3))
 
 E_relax = energies_all[:,0]
+np.save("relax/energies.npy", E_relax)
 E_non_relax1 = energies_all[:,1]
 E_non_relax2 = energies_all[:,2]
 E_non_relax_all = energies_all[:,1:3]
@@ -46,6 +47,7 @@ E_non_relax_all = np.reshape(E_non_relax_all, (2*n_structures))
 # exit()
 
 F_relax = forces_all[:,0,:,:]
+np.save("relax/forces.npy", F_relax)
 # print(F_relax[0])
 # exit()
 F_non_relax1 = forces_all[:,1,:,:]
@@ -160,4 +162,8 @@ plt.plot(range(0,len(energies_r)*3,3), energies_r, '-b')
 plt.savefig('dr.pdf')
 # plt.show()
 
-
+multi_forces = np.reshape(np.load('multi_perturb/forces.npy'), (10000,24,3))
+plt.clf()
+multi_forces = np.mean(np.linalg.norm(multi_forces, axis=2), axis=1)
+plt.plot(range(len(multi_forces)),multi_forces,'-k')
+plt.savefig('multi.pdf')
