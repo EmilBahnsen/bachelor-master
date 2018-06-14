@@ -47,6 +47,9 @@ def length_delta_forces(forces, forces_nn):
 def mean_delta_force(forces, forces_nn):
 	return np.mean(length_delta_forces(forces, forces_nn))
 
+def mean_relative_force(forces, forces_nn):
+	return np.mean(length_delta_forces(forces, forces_nn) / np.linalg.norm(forces,axis=2).flatten())
+
 # --- Forces error distribution ---
 # TODO: layerd histogram, to see it move! (https://towardsdatascience.com/histograms-and-density-plots-in-python-f6bda88f5ac0)
 # def force_error_destribution(data_name_prefix):
@@ -90,14 +93,14 @@ def force_error_destribution(data_name_prefix,dataset_name):
 	n_dataset = (10000 - len(forces_real))
 
 	plt.clf()
-	for i,frac in enumerate(fraction_list_hist):
+	for i,frac in enumerate(np.flip(fraction_list_hist, axis=0)):
 		data_name = data_name_prefix + frac + ".npy"
 		forces_nn = np.load(data_name)
 		min_index = min(len(forces_real), len(forces_nn))
 		length_delta = length_delta_forces(forces_real[len(forces_real)-min_index+1:], forces_nn[len(forces_nn)-min_index+1:])
 		sns.distplot(length_delta, hist = False, kde = True,
                  	 kde_kws = {'shade': False, 'linewidth': 1}, 
-                  	 label = frac)
+                  	 label = "%g" % (float(frac)*100) + "%")
 
 	plt.xlim(-0.5, 7)
 	plt.ylim(0, 1)
@@ -107,7 +110,8 @@ def force_error_destribution(data_name_prefix,dataset_name):
 # multi perturb
 data_name_prefix = "all_forces_test_multi_perturb-29-29-29_struc"
 force_error_destribution(data_name_prefix, "multi-perturb")
-plt.title("Force learning curve for multible pertubations")
+plt.title("Learning errors for multible pertubations")
+plt.tight_layout()
 plt.savefig(data_name_prefix + "_force_hist.pdf")
 
 # --- Learning curve for forces ---
@@ -116,6 +120,7 @@ def force_leannig_curve(data_name_prefix,dataset_name,label=None,fmt='-'):
 	n_dataset = (10000 - len(forces_real))
 
 	mean_delta_forces = np.ndarray([])
+	mean_relative_forces = np.ndarray([])
 	draw_fraction_list = np.ndarray([])
 
 	for i,frac in enumerate(fraction_list):
@@ -127,19 +132,23 @@ def force_leannig_curve(data_name_prefix,dataset_name,label=None,fmt='-'):
 		min_index = min(len(forces_real), len(forces_nn))
 		mean_delta = mean_delta_force(forces_real[len(forces_real)-min_index+1:], forces_nn[len(forces_nn)-min_index+1:])
 		mean_delta_forces = np.append(mean_delta_forces,mean_delta)
+		mean_relative = mean_relative_force(forces_real[len(forces_real)-min_index+1:], forces_nn[len(forces_nn)-min_index+1:])
+		mean_relative_forces = np.append(mean_relative_forces,mean_relative)
 		draw_fraction_list = np.append(draw_fraction_list,frac)
 
+	print("Last in " + dataset_name, mean_relative_forces[-1])
+
 	plt.xlim(100,8000)
-	#plt.ylim(0,5)
+	plt.ylim(0.1,250)
 	# Rm the one outlier
-	pick_index = (mean_delta_forces < 100)
-	mean_delta_forces = mean_delta_forces[pick_index]
+	pick_index = (mean_relative_forces < 100)
+	mean_relative_forces = mean_relative_forces
 	draw_fractions = draw_fraction_list.astype(float)
-	draw_fractions = draw_fractions[pick_index]
-	plt.plot(n_dataset*draw_fractions, mean_delta_forces, fmt, label=label)
-	plt.gca().legend()
+	draw_fractions = draw_fractions
+	plt.loglog(n_dataset*draw_fractions, mean_relative_forces, fmt, label=label)
+	#plt.gca().legend()
 	plt.xlabel("Number of training examples")
-	plt.ylabel("|DFT force - network force prediction| [eV/Å]")
+	plt.ylabel("|DFT force - NN force|/|DFT force|")
 
 # multi perturb
 data_name_prefix_multi = "all_forces_test_multi_perturb-29-29-29_struc"
@@ -184,7 +193,7 @@ force_leannig_curve(data_name_prefix_ss, "single-single", "single-single point",
 force_leannig_curve(data_name_prefix_sr, "single-relax", "single point-relax",fmt='-b')
 force_leannig_curve(data_name_prefix_dd, "dual-dual", "dual-dual point",fmt='--r')
 force_leannig_curve(data_name_prefix__dr, "dual-relax", "dual point-relax",fmt='-r')
-force_leannig_curve(data_name_prefix_multi, "multi-perturb", "multiple pertubations",fmt='-k')
-force_leannig_curve(data_name_prefix_relaxed, "old", "relaxed",fmt='--k')
+force_leannig_curve(data_name_prefix_multi, "multi-perturb", "multiple pertubations",fmt='--k')
+force_leannig_curve(data_name_prefix_relaxed, "old", "relaxed",fmt='-k')
 plt.title("Force learning curves")
 plt.savefig("force_learn_combined.pdf")

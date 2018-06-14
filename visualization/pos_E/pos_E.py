@@ -38,7 +38,8 @@ def create_structures(n_atoms,x_start,x_end,structure_fun):
 	return structures,indep_var
 
 # Dimer and trimer structures
-structures_dimer,R_dimer = create_structures(2,0,3,lambda x: [[0,0,0],[x,0,0]])
+dimer_interval = [0.5,2.5]
+structures_dimer,R_dimer = create_structures(2,dimer_interval[0],dimer_interval[1],lambda x: [[0,0,0],[x,0,0]])
 structures_trimer_linear,_ = create_structures(3,0,3,lambda x: [[0,0,0],[x,0,0],[2*x,0,0]])
 R_trimer = 1.39
 structures_trimer,angles = create_structures(3,0,2*np.pi,
@@ -94,7 +95,10 @@ def plot_figure(x,y,outside,title, xlabel, ylabel, xlims):
 	plt.ylabel(ylabel)
 	plt.xlim(xlims)
 
-plot_figure(R_dimer,E_dimer,dimer_outside,"$C_2$ dimer energy prediction", "R [Å]", "Predicted E [eV]", [0,3])
+plot_figure(R_dimer,E_dimer,dimer_outside,"$C_2$ dimer energy prediction", "R [Å]", "Predicted E [eV]", dimer_interval)
+plt.plot([1.54,1.54],[-10,1],'--k')
+plt.plot([1.33,1.33],[-10,1],'--k')
+plt.plot([1.20,1.20],[-10,1],'--k')
 fig.savefig("pos_E_dimer.pdf")
 
 plot_figure(R_dimer,E_trimer_linear,trimer_linear_outside,"$C_3$ linear trimer energy prediction", "R [Å]", "Predicted E [eV]", [0,3])

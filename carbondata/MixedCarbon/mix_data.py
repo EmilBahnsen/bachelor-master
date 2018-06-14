@@ -29,11 +29,15 @@ pos_non_relax_all = positions_all[:,1:3,:,:]
 pos_non_relax_all = np.reshape(pos_non_relax_all, (2*n_structures,24,3))
 
 E_relax = energies_all[:,0]
+print("E_relax mean = ", np.mean(E_relax), "pm", np.std(E_relax))
 np.save("relax/energies.npy", E_relax)
 E_non_relax1 = energies_all[:,1]
 E_non_relax2 = energies_all[:,2]
 E_non_relax_all = energies_all[:,1:3]
 E_non_relax_all = np.reshape(E_non_relax_all, (2*n_structures))
+print("E_non_relax1 mean = ", np.mean(E_non_relax1), "pm", np.std(E_non_relax1))
+print("E_non_relax2 mean = ", np.mean(E_non_relax2), "pm", np.std(E_non_relax2))
+print("E_non_relax_all mean = ", np.mean(E_non_relax_all), "pm", np.std(E_non_relax_all))
 
 # plt.figure(0)
 # all_E = np.reshape(energies_all, (32424))
@@ -46,6 +50,12 @@ E_non_relax_all = np.reshape(E_non_relax_all, (2*n_structures))
 # input('')
 # exit()
 
+def mean_per_structure(vecs):
+	return np.mean((np.linalg.norm(vecs,axis=2)).flatten(), axis=0)
+
+def std_per_structure(vecs):
+	return np.std((np.linalg.norm(vecs,axis=2)).flatten(), axis=0)
+
 F_relax = forces_all[:,0,:,:]
 np.save("relax/forces.npy", F_relax)
 # print(F_relax[0])
@@ -54,6 +64,11 @@ F_non_relax1 = forces_all[:,1,:,:]
 F_non_relax2 = forces_all[:,2,:,:]
 F_non_relax_all = forces_all[:,1:3,:,:]
 F_non_relax_all = np.reshape(F_non_relax_all, (2*n_structures,24,3))
+print("F_relax mean = ", mean_per_structure(F_relax), "pm", std_per_structure(F_relax))
+print("F_non_relax1 mean = ", mean_per_structure(F_non_relax1), "pm", std_per_structure(F_non_relax1))
+print("F_non_relax2 mean = ", mean_per_structure(F_non_relax2), "pm", std_per_structure(F_non_relax2))
+print("F_non_relax_all mean = ", mean_per_structure(F_non_relax_all), "pm", std_per_structure(F_non_relax_all))
+exit()
 
 # plt.figure(0)
 # forces = np.mean(np.linalg.norm(np.reshape(forces_all, (32424,24,3)), axis=2), axis=1)

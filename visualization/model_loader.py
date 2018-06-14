@@ -201,8 +201,34 @@ class ModelLoader:
 
 if __name__ == "__main__":
     model_dir = sys.argv[1]
-    out_file = sys.argv[2]
+    # out_file = sys.argv[2]
     ml = ModelLoader(model_dir)
+
+    cd = CarbonData("/home/bahnsen/carbon_nn/carbondata/MixedCarbon/non_relaxed_single0.8_non_relaxed_single0.2/", random_seed=None, with_forces=True)
+
+    index = 500
+
+    positions = cd.data_positions[:index]
+    E_real = cd.data_energies[:index]
+    E_nn,outside = ml.get_energy_of_structures(positions)
+
+    print(E_real)
+    print(E_nn)
+
+    import matplotlib.cm as cm
+    colors = cm.gray((1/13)*outside)
+
+    for i in range(len(E_nn)):
+        x = E_real[i]
+        y = E_nn[i]
+        c = colors[i]
+        plt.scatter(x, y, color=c, edgecolor='k')
+
+    plt.plot([-180,-165], [-180,-165], '--k')
+    plt.show()
+    exit()
+    # ------------
+
     _,step,AME      = ml.get_scalar('loss/mean_absolute_error_1')
     _,step,AME_test = ml.get_scalar('loss/mean_absolute_error_test_1')
 

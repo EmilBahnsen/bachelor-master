@@ -19,14 +19,15 @@ print("Multi last:",MAE_new_mu[-1])
 print("Relax last:",MAE_new_old[-1])
 
 
+
 matplotlib.rcParams.update({'font.size': 14})
 
 plt.loglog(n_ss*n_samples,MAE_new_ss,'--b', label='single-point')
 plt.loglog(n_sr*n_samples,MAE_new_sr,'-b', label='single-point/relax')
 plt.loglog(n_dd*n_samples,MAE_new_dd,'--r', label='dual-point')
 plt.loglog(n_dr*n_samples,MAE_new_dr,'-r', label='dual-point/relax')
-plt.loglog(n_mu*n_samples,MAE_new_mu,'-k', label='multiple pertubations')
-plt.loglog(n_old*n_samples,MAE_new_old,'--k', label='relaxed')
+plt.loglog(n_mu*n_samples,MAE_new_mu,'--k', label='multiple pertubations')
+plt.loglog(n_old*n_samples,MAE_new_old,'-k', label='relaxed')
 
 plt.gca().legend()
 plt.ylim(0,6)
